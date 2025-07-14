@@ -41,7 +41,6 @@ export default function InteriorDesignWebsite() {
   const [scrollY, setScrollY] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const heroRef = useRef<HTMLElement>(null);
-  const sectionsRef = useRef<(HTMLElement | null)[]>([]);
 
   // Scroll animations
   useEffect(() => {
@@ -340,7 +339,7 @@ export default function InteriorDesignWebsite() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredFurniture.map((item, index) => (
+            {featuredFurniture.map((item) => (
               <Card
                 key={item.id}
                 className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 scroll-animate"
@@ -482,7 +481,7 @@ export default function InteriorDesignWebsite() {
                           ))}
                         </div>
                         <p className="text-lg text-stone-700 mb-6 italic">
-                          "{testimonial.content}"
+                          &quot;{testimonial.content}&quot;
                         </p>
                         <div className="flex items-center justify-center">
                           <img
@@ -604,7 +603,7 @@ export default function InteriorDesignWebsite() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             <div>
               <h2 className="text-4xl md:text-5xl font-light text-stone-800 mb-6">
-                Let's Create Something Beautiful Together
+                Let&apos;s Create Something Beautiful Together
               </h2>
               <p className="text-xl text-stone-600 mb-8">
                 Ready to transform your space? Get in touch with our design
