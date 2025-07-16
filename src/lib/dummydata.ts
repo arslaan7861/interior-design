@@ -1,16 +1,17 @@
 export const heroSlides = [
   {
-    image: "/images/sofas.png",
+    image: "/images/big-hero-1.jpg",
     title: "Luxury Living Redefined",
     subtitle: "Transform your space with our premium interior designs",
   },
   {
-    image: "/images/kitchen.png",
+    image: "/images/big-hero-2.jpg",
     title: "Scandinavian Elegance",
     subtitle: "Minimalist designs that speak to your soul",
   },
   {
-    image: "/images/chairs.png",
+    image: "/images/big-hero-3.jpg",
+
     title: "Modern Comfort",
     subtitle: "Where functionality meets beautiful aesthetics",
   },
@@ -135,49 +136,49 @@ export const testimonials = [
 export const galleryItems = [
   {
     id: 1,
-    image: "/placeholder.svg?height=400&width=300",
+    image: "/images/chairs.png",
     category: "Modern",
     title: "Modern Living Room",
   },
   {
     id: 2,
-    image: "/placeholder.svg?height=500&width=300",
+    image: "/images/chairs.png",
     category: "Minimalist",
     title: "Minimalist Bedroom",
   },
   {
     id: 3,
-    image: "/placeholder.svg?height=300&width=300",
+    image: "/images/chairs.png",
     category: "Boho",
     title: "Boho Dining Area",
   },
   {
     id: 4,
-    image: "/placeholder.svg?height=450&width=300",
+    image: "/images/chairs.png",
     category: "Scandinavian",
     title: "Scandinavian Kitchen",
   },
   {
     id: 5,
-    image: "/placeholder.svg?height=350&width=300",
+    image: "/images/chairs.png",
     category: "Modern",
     title: "Modern Office",
   },
   {
     id: 6,
-    image: "/placeholder.svg?height=400&width=300",
+    image: "/images/chairs.png",
     category: "Minimalist",
     title: "Minimalist Bathroom",
   },
   {
     id: 7,
-    image: "/placeholder.svg?height=300&width=300",
+    image: "/images/chairs.png",
     category: "Boho",
     title: "Boho Living Space",
   },
   {
     id: 8,
-    image: "/placeholder.svg?height=500&width=300",
+    image: "/images/chairs.png",
     category: "Scandinavian",
     title: "Scandinavian Bedroom",
   },
@@ -190,3 +191,5 @@ export const categories = [
   "Boho",
   "Scandinavian",
 ];
+
+export const productsCategories = ["All", "Sofas", "Beds", "Chairs", "Tables"];
