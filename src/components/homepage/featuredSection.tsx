@@ -4,10 +4,12 @@ import { Card, CardContent } from "../ui/card";
 import { featuredFurniture } from "@/lib/dummydata";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
+import Link from "next/link";
+import { ItemDetails } from "./ItemDetails";
 
 function FeaturedSection() {
   return (
-    <section className="py-20 bg-white">
+    <section id="collections" className="py-20">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 scroll-animate">
           <h2 className="text-4xl md:text-5xl font-light text-stone-800 mb-4">
@@ -57,17 +59,20 @@ function FeaturedSection() {
                   </span>
                 </div>
                 <p className="text-stone-600 mb-4">{item.category}</p>
-                <Button className="w-full bg-stone-800 hover:bg-primary transition-all duration-300 transform hover:scale-105">
-                  View Details
-                </Button>
+                <ItemDetails item={item} />
               </CardContent>
             </Card>
           ))}
         </div>
       </div>
       <article className="w-full flex justify-center">
-        <Button variant={"default"} size={"lg"} className="text-lg mt-5">
-          See more
+        <Button
+          variant={"default"}
+          asChild
+          size={"lg"}
+          className="text-lg mt-5"
+        >
+          <Link href={"/item"}>See More</Link>
         </Button>
       </article>
     </section>

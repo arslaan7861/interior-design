@@ -1,23 +1,27 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  const isNotHome = pathname !== "/";
+  const [isScrolled, setIsScrolled] = useState(isNotHome);
   // Scroll animations
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > window.innerHeight / 2);
+      setIsScrolled(window.scrollY > window.innerHeight / 2 || isNotHome);
     };
-
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [pathname]);
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "text-gray-700 bg-background py-4"
+          ? "text-gray-700 bg-background py-4 border-b shadow-sm"
           : "bg-gradient-to-b from-black/30 via-black/10 to-black/0 py-6"
       }`}
     >
@@ -33,16 +37,16 @@ function Navbar() {
         <div className="hidden md:flex items-center space-x-8">
           {["Home", "Collections", "Projects", "About", "Contact"].map(
             (item) => (
-              <a
+              <Link
                 key={item}
-                href={`#${item.toLowerCase()}`}
+                href={`/#${item.toLowerCase()}`}
                 className={`${
                   isScrolled ? "text-black" : "text-white"
                 } hover:text-primary transition-colors duration-300 relative group`}
               >
                 {item}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-              </a>
+              </Link>
             )
           )}
         </div>

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import Toast from "@/components/Global/Toast";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,6 +18,9 @@ export default async function RootLayout({
     <html lang="en">
       <body className="bg-background  w-screen h-svh overflow-x-hidden">
         <Toaster position="top-center" />
+        <Suspense fallback={<></>}>
+          <Toast />
+        </Suspense>
         {children}
       </body>
     </html>

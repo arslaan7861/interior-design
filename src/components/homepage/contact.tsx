@@ -15,7 +15,7 @@ import { Card, CardContent } from "../ui/card";
 
 function ContactSection() {
   return (
-    <section className="py-20 bg-white">
+    <section id="contact" className="py-20 bg-white">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>

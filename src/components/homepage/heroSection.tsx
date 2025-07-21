@@ -6,7 +6,7 @@ import Image from "next/image";
 
 function HeroSection() {
   return (
-    <section className="relative h-screen overflow-hidden">
+    <section id="home" className="relative h-screen overflow-hidden">
       {/* Parallax Background */}
       <div className="absolute inset-0">
         {heroSlides.map((slide, index) => (

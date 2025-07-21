@@ -7,7 +7,7 @@ import Image from "next/image";
 
 function Projects() {
   return (
-    <section className="py-20 bg-stone-100">
+    <section id="projects" className="py-20 bg-stone-100">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 scroll-animate">
           <h2 className="text-4xl md:text-5xl font-light text-stone-800 mb-4">
