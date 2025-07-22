@@ -8,7 +8,6 @@ import {
   Mail,
   MapPin,
   Phone,
-  Twitter,
 } from "lucide-react";
 import { Input } from "../ui/input";
 import { Card, CardContent } from "../ui/card";
@@ -34,7 +33,9 @@ function ContactSection() {
               </div>
               <div className="flex items-center">
                 <Mail className="h-6 w-6 text-primary mr-4" />
-                <span className="text-stone-700">hello@luxeinterior.com</span>
+                <span className="text-stone-700">
+                  {process.env.NEXT_PUBLIC_COMPANY_EMAIL}
+                </span>
               </div>
               <div className="flex items-center">
                 <MapPin className="h-6 w-6 text-primary mr-4" />
@@ -60,12 +61,6 @@ function ContactSection() {
                   className="text-stone-600 hover:text-primary transition-colors duration-300"
                 >
                   <Facebook size={24} />
-                </a>
-                <a
-                  href="#"
-                  className="text-stone-600 hover:text-primary transition-colors duration-300"
-                >
-                  <Twitter size={24} />
                 </a>
               </div>
             </div>

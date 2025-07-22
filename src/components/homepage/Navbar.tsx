@@ -31,7 +31,7 @@ function Navbar() {
             isScrolled ? "text-black" : "text-white"
           }`}
         >
-          Luxe<span className="text-primary">Interior</span>
+          Chandigarh<span className="text-primary">Decor</span>
         </div>
 
         <div className="hidden md:flex items-center space-x-8">

@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Twitter } from "lucide-react";
+import { Facebook, Instagram } from "lucide-react";
 import React from "react";
 
 function Footer() {
@@ -8,7 +8,7 @@ function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <div>
             <div className="text-2xl font-bold mb-4">
-              Luxe<span className="text-primary">Interior</span>
+              Chandigarh<span className="text-primary">Decor</span>
             </div>
             <p className="text-stone-300 mb-4">
               Creating beautiful, functional spaces that reflect your unique
@@ -26,12 +26,6 @@ function Footer() {
                 className="text-stone-400 hover:text-primary transition-colors duration-300"
               >
                 <Facebook size={20} />
-              </a>
-              <a
-                href="#"
-                className="text-stone-400 hover:text-primary transition-colors duration-300"
-              >
-                <Twitter size={20} />
               </a>
             </div>
           </div>
@@ -118,7 +112,7 @@ function Footer() {
               <p>123 Design Street</p>
               <p>New York, NY 10001</p>
               <p>+1 (555) 123-4567</p>
-              <p>hello@luxeinterior.com</p>
+              <p>{process.env.NEXT_PUBLIC_COMPANY_EMAIL}</p>
             </div>
           </div>
         </div>
@@ -126,7 +120,7 @@ function Footer() {
         <div className="border-t border-stone-700 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-stone-400 text-sm">
-              © 2024 LuxeInterior. All rights reserved.
+              © 2024 ChandigarhDecor. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a

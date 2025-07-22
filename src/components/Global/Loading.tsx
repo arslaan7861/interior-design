@@ -119,7 +119,7 @@ export function LoadingScreen({
           {/* Brand */}
           <div className="text-center pt-4 border-t border-stone-100 w-full">
             <div className="text-sm font-medium text-stone-600">
-              Luxe<span className="text-primary">Interior</span>
+              Chandigarh<span className="text-primary">Decor</span>
             </div>
           </div>
         </CardContent>

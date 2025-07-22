@@ -97,7 +97,7 @@ export default async function AdminVerificationPage({
               <Shield className="h-5 w-5 text-white" />
             </div>
             <span>
-              Luxe<span className="text-primary">Interior</span>
+              Chandigarh<span className="text-primary">Decor</span>
             </span>
           </div>
           <p className="text-sm text-stone-500 mt-2">Admin Panel Access</p>
@@ -131,7 +131,7 @@ export default async function AdminVerificationPage({
 
         {/* Footer */}
         <div className="text-center mt-4 text-xs text-stone-500">
-          <p>© 2024 LuxeInterior. All rights reserved.</p>
+          <p>© 2024 ChandigarhDecor. All rights reserved.</p>
         </div>
       </div>
     </div>
