@@ -1,21 +1,8 @@
-export const heroSlides = [
-  {
-    image: "/images/big-hero-1.jpg",
-    title: "Luxury Living Redefined",
-    subtitle: "Transform your space with our premium interior designs",
-  },
-  {
-    image: "/images/big-hero-2.jpg",
-    title: "Scandinavian Elegance",
-    subtitle: "Minimalist designs that speak to your soul",
-  },
-  {
-    image: "/images/big-hero-3.jpg",
-
-    title: "Modern Comfort",
-    subtitle: "Where functionality meets beautiful aesthetics",
-  },
-];
+export const heroContent = {
+  image: "/images/big-hero-1.jpg",
+  title: "Luxury Living Redefined",
+  subtitle: "Transform your space with our premium interior designs",
+};
 
 export const featuredFurniture = [
   {

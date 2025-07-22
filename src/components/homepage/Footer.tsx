@@ -3,10 +3,11 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="bg-stone-800 text-white py-16">
+    <footer className="bg-stone-800 text-white py-16" aria-label="Site footer">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          <div>
+          {/* Branding & Social */}
+          <section aria-label="Brand description and social links">
             <div className="text-2xl font-bold mb-4">
               Chandigarh<span className="text-primary">Decor</span>
             </div>
@@ -14,134 +15,113 @@ function Footer() {
               Creating beautiful, functional spaces that reflect your unique
               style and personality.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex space-x-4" aria-label="Social media links">
               <a
                 href="#"
                 className="text-stone-400 hover:text-primary transition-colors duration-300"
+                aria-label="Instagram"
               >
                 <Instagram size={20} />
               </a>
               <a
                 href="#"
                 className="text-stone-400 hover:text-primary transition-colors duration-300"
+                aria-label="Facebook"
               >
                 <Facebook size={20} />
               </a>
             </div>
-          </div>
+          </section>
 
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Services</h4>
+          {/* Services */}
+          <section aria-labelledby="footer-services">
+            <h4 id="footer-services" className="text-lg font-semibold mb-4">
+              Services
+            </h4>
             <ul className="space-y-2 text-stone-300">
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-primary transition-colors duration-300"
-                >
-                  Interior Design
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-primary transition-colors duration-300"
-                >
-                  Space Planning
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-primary transition-colors duration-300"
-                >
-                  Furniture Selection
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-primary transition-colors duration-300"
-                >
-                  Color Consultation
-                </a>
-              </li>
+              {[
+                "Interior Design",
+                "Space Planning",
+                "Furniture Selection",
+                "Color Consultation",
+              ].map((service) => (
+                <li key={service}>
+                  <a
+                    href="#"
+                    className="hover:text-primary transition-colors duration-300"
+                    aria-label={service}
+                  >
+                    {service}
+                  </a>
+                </li>
+              ))}
             </ul>
-          </div>
+          </section>
 
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Company</h4>
+          {/* Company */}
+          <section aria-labelledby="footer-company">
+            <h4 id="footer-company" className="text-lg font-semibold mb-4">
+              Company
+            </h4>
             <ul className="space-y-2 text-stone-300">
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-primary transition-colors duration-300"
-                >
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-primary transition-colors duration-300"
-                >
-                  Our Team
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-primary transition-colors duration-300"
-                >
-                  Portfolio
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-primary transition-colors duration-300"
-                >
-                  Careers
-                </a>
-              </li>
+              {["About Us", "Our Team", "Portfolio", "Careers"].map((item) => (
+                <li key={item}>
+                  <a
+                    href="#"
+                    className="hover:text-primary transition-colors duration-300"
+                    aria-label={item}
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
             </ul>
-          </div>
+          </section>
 
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
-            <div className="space-y-2 text-stone-300">
+          {/* Contact */}
+          <section aria-labelledby="footer-contact">
+            <h4 id="footer-contact" className="text-lg font-semibold mb-4">
+              Contact Info
+            </h4>
+            <address className="not-italic space-y-2 text-stone-300">
               <p>123 Design Street</p>
               <p>New York, NY 10001</p>
               <p>+1 (555) 123-4567</p>
-              <p>{process.env.NEXT_PUBLIC_COMPANY_EMAIL}</p>
-            </div>
-          </div>
+              <p>
+                <a
+                  href={`mailto:${process.env.NEXT_PUBLIC_COMPANY_EMAIL}`}
+                  className="hover:text-primary transition-colors duration-300"
+                >
+                  {process.env.NEXT_PUBLIC_COMPANY_EMAIL}
+                </a>
+              </p>
+            </address>
+          </section>
         </div>
 
+        {/* Bottom Bar */}
         <div className="border-t border-stone-700 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-stone-400 text-sm">
               © 2024 ChandigarhDecor. All rights reserved.
             </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <a
-                href="#"
-                className="text-stone-400 hover:text-primary text-sm transition-colors duration-300"
-              >
-                Privacy Policy
-              </a>
-              <a
-                href="#"
-                className="text-stone-400 hover:text-primary text-sm transition-colors duration-300"
-              >
-                Terms of Service
-              </a>
-              <a
-                href="#"
-                className="text-stone-400 hover:text-primary text-sm transition-colors duration-300"
-              >
-                Cookie Policy
-              </a>
-            </div>
+            <nav
+              className="flex space-x-6 mt-4 md:mt-0"
+              aria-label="Legal navigation"
+            >
+              {["Privacy Policy", "Terms of Service", "Cookie Policy"].map(
+                (policy) => (
+                  <a
+                    key={policy}
+                    href="#"
+                    className="text-stone-400 hover:text-primary text-sm transition-colors duration-300"
+                    aria-label={policy}
+                  >
+                    {policy}
+                  </a>
+                )
+              )}
+            </nav>
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@ import FeaturedSection from "@/components/homepage/featuredSection";
 import Testimonials from "@/components/homepage/testimonials";
 import Projects from "@/components/homepage/projects";
 import ContactSection from "@/components/homepage/contact";
-
+export const dynamic = "force-static";
 export default function InteriorDesignWebsite() {
   return (
     <>
