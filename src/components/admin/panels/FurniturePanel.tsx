@@ -49,10 +49,11 @@ async function FurniturePanel({ category }: { category: string }) {
             className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 scroll-animate pt-0"
           >
             <div className="relative overflow-hidden">
-              <div className="w-full h-64 object-cover relative transition-all duration-700 group-hover:scale-110 group-hover:rotate-1">
+              <div className="w-full h-64 relative transition-all duration-700 group-hover:scale-110 group-hover:rotate-1">
                 <Image
                   src={item.image_url || "/placeholder.svg"}
                   alt={item.name}
+                  className="object-cover"
                   fill
                 />
               </div>

@@ -15,7 +15,7 @@ import {
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2, Plus, Video } from "lucide-react";
+import { ImageIcon, Loader2, Plus, Video } from "lucide-react";
 import { toast } from "sonner";
 import { newProjectAction } from "@/server/admin/Project";
 import { useRouter } from "next/navigation";
@@ -102,28 +102,26 @@ function AddProjectForm() {
             <div className="w-full aspect-video md:h-full">
               <Label
                 htmlFor="file"
-                className="aspect-video mb-2 w-full md:h-full relative rounded-2xl overflow-clip"
+                className="aspect-video w-full md:h-full relative rounded-2xl overflow-clip"
               >
                 {preview ? (
-                  <video
+                  <img
                     src={preview}
-                    autoPlay
-                    muted
-                    className="object-cover absolute inset-0 h-full mx-auto"
-                    loop
+                    alt=""
+                    className="object-cover absolute inset-0 h-full"
                   />
                 ) : (
                   <div className="flex flex-col items-center justify-center space-y-4 text-center border-4 border-dashed rounded-2xl absolute inset-0">
                     <div className={`p-4 rounded-full bg-stone-100`}>
-                      <Video className={`h-8 w-8 text-stone-500`} />
+                      <ImageIcon className={`h-8 w-8 text-stone-500`} />
                     </div>
                     <div className="space-y-2">
                       <h3 className="text-lg font-semibold text-stone-800">
-                        Upload Video
+                        Upload Image
                       </h3>
                       <p className="text-stone-600">Click to browse</p>
                       <p className="text-sm text-stone-500">
-                        Supports: Video • Max size: 100MB
+                        Supports: Image • Max size: 20MB
                       </p>
                     </div>
                   </div>
@@ -132,13 +130,15 @@ function AddProjectForm() {
               <Input
                 id="file"
                 type="file"
-                accept="video/*"
+                accept="image/*"
                 {...register("file")}
                 className="hidden"
                 onChange={handleFileChange}
               />
               {errors.file && (
-                <p className="text-red-500 text-sm">{errors.file.message}</p>
+                <p className="text-red-500 text-sm p-2">
+                  {errors.file.message}
+                </p>
               )}
             </div>
             <div className="space-y-4 w-full">
