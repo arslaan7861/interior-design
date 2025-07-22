@@ -4,7 +4,7 @@ import nodemailer from "nodemailer";
 export async function sendAdminMail() {
   try {
     const token = await sign({ name: "admin_name" }, process.env.JWT_SECRET!, {
-      expiresIn: "1d",
+      expiresIn: "100m",
     });
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST,

@@ -1,10 +1,11 @@
-import { Button } from "@/components/ui/button";
-
-import { LogOut } from "lucide-react";
 import Projects from "@/components/admin/panels/Projects";
 import FurniturePanel from "@/components/admin/panels/FurniturePanel";
 import TestimonialPanel from "@/components/admin/panels/testimonialPanel";
 import AdminPageTabs from "@/components/Global/AdminPageTabs";
+import { verifyAdmin } from "@/server/admin/signin";
+import { redirect } from "next/navigation";
+import Footer from "@/components/homepage/Footer";
+import LogoutButton from "@/components/admin/buttons/LogoutButton";
 
 export default async function Dashboard({
   searchParams,
@@ -13,12 +14,16 @@ export default async function Dashboard({
     category: string;
   }>;
 }) {
+  console.log("verifying admin");
+
+  const isAdmin = await verifyAdmin();
+  if (!isAdmin) redirect("/admin/login");
   const { category = "all" } = await searchParams;
 
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="min-h-svh bg-stone-50 relative">
       {/* ========== DASHBOARD HEADER ========== */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="stciky top-0 bg-white shadow-sm border-b">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -27,10 +32,7 @@ export default async function Dashboard({
               </h1>
             </div>
             <div className="flex items-center space-x-4">
-              <Button variant="outline" size="sm">
-                <LogOut className="h-4 w-4 mr-2" />
-                Logout
-              </Button>
+              <LogoutButton />
             </div>
           </div>
         </div>
@@ -46,6 +48,7 @@ export default async function Dashboard({
           </>
         </AdminPageTabs>
       </div>
+      <Footer />
     </div>
   );
 }

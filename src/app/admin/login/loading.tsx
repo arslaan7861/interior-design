@@ -4,7 +4,7 @@ import React from "react";
 
 function LoadingLoginPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stone-50 via-amber-50/30 to-stone-100 flex items-center justify-center p-4">
+    <div className="min-h-screen sm:bg-gradient-to-br from-stone-50 via-amber-50/30 to-stone-100 flex items-center justify-center p-4">
       <Card className="w-full max-w-md shadow-xl border-0 bg-white/80 backdrop-blur-sm">
         <CardContent className="p-8">
           <div className="text-center space-y-6">

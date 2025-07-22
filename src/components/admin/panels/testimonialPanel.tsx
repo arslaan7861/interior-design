@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ITestimonial, TestimonialModel } from "@/server/DB/TestimonialModel";
 import { ObjectId } from "mongoose";
 import DeleteTestimonialButton from "../buttons/TestimonialDeleteButton";
+import EmptyMessage from "./EmptyMessage";
 
 async function TestimonialPanel() {
   const dBtestimonials = await TestimonialModel.find().lean();
@@ -33,50 +34,55 @@ async function TestimonialPanel() {
         </div>
         <AddTestimonialForm />
       </div>
+      {testimonials.length <= 0 ? (
+        <EmptyMessage message={"No testimonials added yet"} />
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {testimonials.map((testimonial) => (
+            <Card key={testimonial._id} className="group">
+              <CardContent className="p-4">
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-3 ">
+                    <Avatar className="h-12 aspect-square w-12">
+                      <AvatarFallback>
+                        {testimonial.name
+                          .split(" ")
+                          .map((w) => w[0])
+                          .join("")}
+                      </AvatarFallback>
+                    </Avatar>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {testimonials.map((testimonial) => (
-          <Card key={testimonial._id} className="group">
-            <CardContent className="p-4">
-              <div className="space-y-4">
-                <div className="flex items-center space-x-3 ">
-                  <Avatar className="h-12 aspect-square w-12">
-                    <AvatarFallback>
-                      {testimonial.name
-                        .split(" ")
-                        .map((w) => w[0])
-                        .join("")}
-                    </AvatarFallback>
-                  </Avatar>
-
-                  <div>
-                    <h3 className="font-semibold text-stone-800">
-                      {testimonial.name}
-                    </h3>
-                    <p className="text-sm text-stone-600">{testimonial.role}</p>
+                    <div>
+                      <h3 className="font-semibold text-stone-800">
+                        {testimonial.name}
+                      </h3>
+                      <p className="text-sm text-stone-600">
+                        {testimonial.role}
+                      </p>
+                    </div>
+                    <DeleteTestimonialButton item={testimonial} />
                   </div>
-                  <DeleteTestimonialButton item={testimonial} />
+                  <div className="flex items-center space-x-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`h-4 w-4 ${
+                          i < testimonial.rating
+                            ? "fill-amber-400 text-amber-400"
+                            : "text-stone-300"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <blockquote className="text-sm text-stone-700 italic">
+                    &quot;{testimonial.content}&quot;
+                  </blockquote>
                 </div>
-                <div className="flex items-center space-x-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`h-4 w-4 ${
-                        i < testimonial.rating
-                          ? "fill-amber-400 text-amber-400"
-                          : "text-stone-300"
-                      }`}
-                    />
-                  ))}
-                </div>
-                <blockquote className="text-sm text-stone-700 italic">
-                  &quot;{testimonial.content}&quot;
-                </blockquote>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
     </TabsContent>
   );
 }

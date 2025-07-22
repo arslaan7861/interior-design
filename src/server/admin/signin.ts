@@ -1,7 +1,6 @@
 "use server";
 import { sign, verify } from "jsonwebtoken";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 export async function signinAdmin(verificationToken: string | undefined) {
   try {
@@ -30,17 +29,29 @@ export async function AttachTokenAction() {
       }
     );
     const cookieStore = await cookies();
-    cookieStore.set("token", token, { secure: true });
-    redirect("/admin?message=Welcome adminame");
-  } catch {
-    redirect("admin/login");
+    cookieStore.set("token", token, {
+      secure: true,
+      maxAge: 1000 * 3600 * 24 * 30,
+    });
+    console.log("signed success");
+
+    return "/admin?message=Welcome adminame";
+  } catch (error) {
+    console.log(error);
+    return "/admin/login";
   }
+}
+
+export async function logOut() {
+  const cookieStore = await cookies();
+  cookieStore.set("token", "", { secure: true });
 }
 
 export async function verifyAdmin() {
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get("token")?.value as string;
+    if (!token) return false;
     const payload = await verify(token, process.env.JWT_SECRET as string);
     if (payload) return true;
   } catch (error) {

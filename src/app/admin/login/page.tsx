@@ -20,12 +20,12 @@ export default async function AdminVerificationPage({
   // Simulate token verification on component mount
   const userEmail = "asd@gmail.com";
   const params = await searchParams;
+  console.log({ params });
+
   if (params.token) {
     const resp = await signinAdmin(params.token);
-
     if (resp) {
       return <AttachToken />;
-      // redirect("/admin?message=Welcome " + resp.name);
     } else params.state = "invalid";
   }
 

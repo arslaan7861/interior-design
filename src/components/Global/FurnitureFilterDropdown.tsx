@@ -9,12 +9,15 @@ import {
 } from "../ui/select";
 import { useRouter } from "next/navigation";
 
-function FurnitureFilterDropdown() {
+function FurnitureFilterDropdown({ category = "all" }: { category: string }) {
   const router = useRouter();
   return (
-    <Select onValueChange={(val) => router.push(`/admin?category=${val}`)}>
+    <Select
+      defaultValue={category}
+      onValueChange={(val) => router.push(`/admin?category=${val}`)}
+    >
       <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Filter by category" />
+        <SelectValue placeholder={category} />
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="all">All Categories</SelectItem>

@@ -9,6 +9,7 @@ import { IProject, ProjectModel } from "@/server/DB/ProjectModel";
 import { ObjectId } from "mongoose";
 import DeleteProjectButton from "../buttons/ProjectDelete";
 import connectDb from "@/server/DB";
+import EmptyMessage from "./EmptyMessage";
 
 async function Projects() {
   await connectDb();
@@ -36,45 +37,48 @@ async function Projects() {
         </div>
         <AddProjectForm />
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {projects.map((project) => (
-          <Card
-            key={project._id}
-            className="group overflow-hidden border-0 shadow-lg pt-0 hover:shadow-2xl transition-all duration-500 scroll-animate transform hover:-translate-y-1"
-          >
-            <div className="relative overflow-hidden">
-              <div className="w-full h-64 relative transition-all duration-700 group-hover:scale-110 group-hover:rotate-1">
-                <Image
-                  src={project.video_url || "/placeholder.svg"}
-                  alt={project.name}
-                  className="object-cover"
-                  fill
-                />
-              </div>
-
-              <Badge className="absolute top-4 left-4 bg-primary hover:bg-primary/90 animate-pulse">
-                New
-              </Badge>
-            </div>
-            <CardContent className="p-6">
-              <h3 className="text-xl font-semibold text-stone-800 mb-2 group-hover:text-primary transition-colors duration-300 relative">
-                {project.name}
-                <div className="absolute top-0 right-4">
-                  <DeleteProjectButton item={project} />
+      {projects.length <= 0 ? (
+        <EmptyMessage message={"No Projects added yet"} />
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {projects.map((project) => (
+            <Card
+              key={project._id}
+              className="group overflow-hidden border-0 shadow-lg pt-0 hover:shadow-2xl transition-all duration-500 scroll-animate transform hover:-translate-y-1"
+            >
+              <div className="relative overflow-hidden">
+                <div className="w-full h-64 relative transition-all duration-700 group-hover:scale-110 group-hover:rotate-1">
+                  <Image
+                    src={project.video_url || "/placeholder.svg"}
+                    alt={project.name}
+                    className="object-cover"
+                    fill
+                  />
                 </div>
-              </h3>
-              <p className="text-stone-600 flex items-center">
-                <MapPin className="h-4 w-4 mr-1 group-hover:text-primary transition-colors duration-300" />
-                {project.location}
-              </p>
-              <p className="text-stone-500 text-sm my-2 line-clamp-3">
-                {project.description}
-              </p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+
+                <Badge className="absolute top-4 left-4 bg-primary hover:bg-primary/90 animate-pulse">
+                  New
+                </Badge>
+              </div>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-semibold text-stone-800 mb-2 group-hover:text-primary transition-colors duration-300 relative">
+                  {project.name}
+                  <div className="absolute top-0 right-4">
+                    <DeleteProjectButton item={project} />
+                  </div>
+                </h3>
+                <p className="text-stone-600 flex items-center">
+                  <MapPin className="h-4 w-4 mr-1 group-hover:text-primary transition-colors duration-300" />
+                  {project.location}
+                </p>
+                <p className="text-stone-500 text-sm my-2 line-clamp-3">
+                  {project.description}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
     </TabsContent>
   );
 }
