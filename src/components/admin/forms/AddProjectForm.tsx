@@ -15,7 +15,7 @@ import {
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ImageIcon, Loader2, Plus, Video } from "lucide-react";
+import { ImageIcon, Loader2, Plus } from "lucide-react";
 import { toast } from "sonner";
 import { newProjectAction } from "@/server/admin/Project";
 import { useRouter } from "next/navigation";
