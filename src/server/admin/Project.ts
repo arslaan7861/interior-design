@@ -30,17 +30,17 @@ export async function newProjectAction({
     return { message: "Failed to upload", status: false };
   }
 }
-export async function deleteProject({
-  id,
+export async function deleteProjectAction({
+  _id,
   publicId,
 }: {
-  id: string;
+  _id: string;
   publicId: string;
 }) {
   try {
     await connectDb();
     await deleteFromCloudinary(publicId);
-    await ProjectModel.findByIdAndDelete(id);
+    await ProjectModel.findByIdAndDelete(_id);
     revalidatePath("/");
     console.log("Deleted project successfully");
     return { message: "Deleted successfully", status: true };

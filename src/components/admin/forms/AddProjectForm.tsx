@@ -108,7 +108,7 @@ function AddProjectForm() {
                   <img
                     src={preview}
                     alt=""
-                    className="object-cover absolute inset-0 h-full"
+                    className="object-cover absolute inset-0 h-full w-full"
                   />
                 ) : (
                   <div className="flex flex-col items-center justify-center space-y-4 text-center border-4 border-dashed rounded-2xl absolute inset-0">

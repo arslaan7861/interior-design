@@ -1,45 +1,27 @@
-"use client";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { TabsContent } from "@/components/ui/tabs";
 
-import { Edit, Trash2, Video } from "lucide-react";
+import { MapPin } from "lucide-react";
 import AddProjectForm from "../forms/AddProjectForm";
+import Image from "next/image";
+import { IProject, ProjectModel } from "@/server/DB/ProjectModel";
+import { ObjectId } from "mongoose";
+import DeleteProjectButton from "../buttons/ProjectDelete";
+import connectDb from "@/server/DB";
 
-interface Project {
-  id: number;
-  title: string;
-  location: string;
-  beforeImages: string[];
-  afterImages: string[];
-  videos: string[];
-  category: string;
-  description: string;
-  completedAt: string;
-  clientName: string;
-}
-
-function Projects() {
-  const [projects, setProjects] = useState<Project[]>([
-    {
-      id: 1,
-      title: "Modern Penthouse",
-      location: "Manhattan, NY",
-      beforeImages: ["/placeholder.svg?height=200&width=300"],
-      afterImages: ["/placeholder.svg?height=200&width=300"],
-      videos: [],
-      category: "Modern",
-      description: "Complete renovation of luxury penthouse",
-      completedAt: "2024-01-20",
-      clientName: "John Smith",
-    },
-  ]);
-
-  const deleteProject = (id: number) => {
-    setProjects(projects.filter((item) => item.id !== id));
-  };
+async function Projects() {
+  await connectDb();
+  const dbProjects = await ProjectModel.find().lean();
+  const projects = dbProjects.map(
+    ({ _id, createdAt, updatedAt, __v, ...rest }) => {
+      return {
+        ...rest,
+        _id: (_id as ObjectId).toString(),
+      };
+      console.log(createdAt, updatedAt, __v);
+    }
+  ) as IProject[];
 
   return (
     <TabsContent value="projects" className="space-y-6">
@@ -57,79 +39,38 @@ function Projects() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {projects.map((project) => (
-          <Card key={project.id} className="group">
-            <CardContent className="p-4">
-              <div className="relative mb-4">
-                <div className="grid grid-cols-2 gap-2 mb-2">
-                  <div>
-                    <p className="text-xs text-stone-500 mb-1">
-                      Before ({project.beforeImages.length})
-                    </p>
-                    <div className="grid grid-cols-2 gap-1">
-                      {project.beforeImages.slice(0, 2).map((image, index) => (
-                        <img
-                          key={index}
-                          src={image || "/placeholder.svg"}
-                          alt={`${project.title} - Before ${index + 1}`}
-                          className="w-full h-16 object-cover rounded"
-                        />
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-xs text-stone-500 mb-1">
-                      After ({project.afterImages.length})
-                    </p>
-                    <div className="grid grid-cols-2 gap-1">
-                      {project.afterImages.slice(0, 2).map((image, index) => (
-                        <img
-                          key={index}
-                          src={image || "/placeholder.svg"}
-                          alt={`${project.title} - After ${index + 1}`}
-                          className="w-full h-16 object-cover rounded"
-                        />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                {project.videos.length > 0 && (
-                  <div className="flex items-center gap-2 text-xs text-stone-500">
-                    <Video className="h-3 w-3" />
-                    <span>
-                      {project.videos.length} video
-                      {project.videos.length > 1 ? "s" : ""}
-                    </span>
-                  </div>
-                )}
-                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <div className="flex space-x-1">
-                    <Button size="sm" variant="secondary">
-                      <Edit className="h-3 w-3" />
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="destructive"
-                      onClick={() => deleteProject(project.id)}
-                    >
-                      <Trash2 className="h-3 w-3" />
-                    </Button>
-                  </div>
-                </div>
+          <Card
+            key={project._id}
+            className="group overflow-hidden border-0 shadow-lg pt-0 hover:shadow-2xl transition-all duration-500 scroll-animate transform hover:-translate-y-1"
+          >
+            <div className="relative overflow-hidden">
+              <div className="w-full h-64 relative transition-all duration-700 group-hover:scale-110 group-hover:rotate-1">
+                <Image
+                  src={project.video_url || "/placeholder.svg"}
+                  alt={project.name}
+                  className="object-cover"
+                  fill
+                />
               </div>
-              <div className="space-y-2">
-                <div className="flex justify-between items-start">
-                  <h3 className="font-semibold text-stone-800">
-                    {project.title}
-                  </h3>
-                  <Badge>{project.category}</Badge>
+
+              <Badge className="absolute top-4 left-4 bg-primary hover:bg-primary/90 animate-pulse">
+                New
+              </Badge>
+            </div>
+            <CardContent className="p-6">
+              <h3 className="text-xl font-semibold text-stone-800 mb-2 group-hover:text-primary transition-colors duration-300 relative">
+                {project.name}
+                <div className="absolute top-0 right-4">
+                  <DeleteProjectButton item={project} />
                 </div>
-                <p className="text-sm text-stone-600">{project.location}</p>
-                <p className="text-xs text-stone-500">{project.description}</p>
-                <div className="flex justify-between items-center pt-2 text-xs text-stone-500">
-                  <span>Client: {project.clientName}</span>
-                  <span>Completed: {project.completedAt}</span>
-                </div>
-              </div>
+              </h3>
+              <p className="text-stone-600 flex items-center">
+                <MapPin className="h-4 w-4 mr-1 group-hover:text-primary transition-colors duration-300" />
+                {project.location}
+              </p>
+              <p className="text-stone-500 text-sm my-2 line-clamp-3">
+                {project.description}
+              </p>
             </CardContent>
           </Card>
         ))}

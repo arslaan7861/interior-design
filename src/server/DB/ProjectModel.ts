@@ -7,6 +7,7 @@ export interface IProject extends Document {
   description: string;
   video_url: string; // Cloudinary or other file storage URL
   video_public_id: string;
+  _id: string;
 }
 
 const ProjectSchema: Schema = new Schema(

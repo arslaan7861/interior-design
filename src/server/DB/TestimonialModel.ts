@@ -5,6 +5,7 @@ export interface ITestimonial extends Document {
   role: string;
   content: string;
   rating: number;
+  _id: string;
 }
 
 const TestimonialSchema: Schema = new Schema(

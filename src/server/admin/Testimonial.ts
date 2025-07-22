@@ -14,7 +14,7 @@ export async function AddTestimonial(formData: TestimonialFormData) {
     return { message: "Failed to upload", status: false };
   }
 }
-export async function deleteTestimonial(id: string) {
+export async function deleteTestimonialAction(id: string) {
   try {
     await connectDb();
     await TestimonialModel.findByIdAndDelete(id);
