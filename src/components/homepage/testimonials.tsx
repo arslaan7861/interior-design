@@ -26,9 +26,9 @@ async function Testimonials({
             {testimonials.map((testimonial) => (
               <div
                 key={testimonial._id}
-                className="w-full flex-shrink-0 px-8 border flex flex-col justify-center"
+                className="w-full flex-shrink-0 px-8 flex flex-col justify-center"
               >
-                <Card key={testimonial._id} className="group border ">
+                <Card key={testimonial._id} className="group">
                   <CardContent className="p-4">
                     <div className="space-y-4">
                       <div className="flex items-center space-x-3 ">
