@@ -1,9 +1,14 @@
-import { Facebook, Instagram } from "lucide-react";
+import { Instagram } from "lucide-react";
 import React from "react";
+import { Button } from "../ui/button";
 
 function Footer() {
   return (
-    <footer className="bg-stone-800 text-white py-16" aria-label="Site footer">
+    <footer
+      id="about"
+      className="bg-stone-800 text-white py-16"
+      aria-label="Site footer"
+    >
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Branding & Social */}
@@ -17,19 +22,21 @@ function Footer() {
             </p>
             <div className="flex space-x-4" aria-label="Social media links">
               <a
-                href="#"
-                className="text-stone-400 hover:text-primary transition-colors duration-300"
+                href="https://www.instagram.com/modern_makeover_studio1/?igsh=NG00dnZpeDc0N213&utm_source=qr"
+                className="text-stone-300 hover:text-primary transition-colors duration-300 flex gap-1"
                 aria-label="Instagram"
+                target="_blank"
               >
-                <Instagram size={20} />
+                <Instagram size={20} /> Instagram
               </a>
-              <a
+              {/* <a
                 href="#"
                 className="text-stone-400 hover:text-primary transition-colors duration-300"
                 aria-label="Facebook"
+                target="_blank"
               >
                 <Facebook size={20} />
-              </a>
+              </a> */}
             </div>
           </section>
 
@@ -84,9 +91,18 @@ function Footer() {
               Contact Info
             </h4>
             <address className="not-italic space-y-2 text-stone-300">
-              <p>123 Design Street</p>
-              <p>New York, NY 10001</p>
-              <p>+1 (555) 123-4567</p>
+              <p>
+                S.C.O 123 school road new furniture market, Baltana Chandigarh
+                India
+              </p>
+              <article className="flex flex-col items-start">
+                <Button variant={"ghost"} asChild className="px-0">
+                  <a href="tel:+918699062901">+91 8699062901 </a>
+                </Button>{" "}
+                <Button variant={"ghost"} asChild className="px-0">
+                  <a href="tel:+919357757976">+91 9357757976 </a>
+                </Button>
+              </article>
               <p>
                 <a
                   href={`mailto:${process.env.NEXT_PUBLIC_COMPANY_EMAIL}`}

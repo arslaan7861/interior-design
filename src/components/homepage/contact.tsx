@@ -1,16 +1,5 @@
 import React from "react";
-import { Textarea } from "../ui/textarea";
-import { Button } from "../ui/button";
-import {
-  ArrowRight,
-  Facebook,
-  Instagram,
-  Mail,
-  MapPin,
-  Phone,
-} from "lucide-react";
-import { Input } from "../ui/input";
-import { Card, CardContent } from "../ui/card";
+import { Instagram, Mail, MapPin, Phone } from "lucide-react";
 
 function ContactSection() {
   return (
@@ -27,20 +16,24 @@ function ContactSection() {
             </p>
 
             <div className="space-y-6">
-              <div className="flex items-center">
+              <a href="tel:+918699062901" className="flex items-center">
                 <Phone className="h-6 w-6 text-primary mr-4" />
-                <span className="text-stone-700">+1 (555) 123-4567</span>
-              </div>
-              <div className="flex items-center">
+                <span className="text-stone-700">+91 8699062901 </span>
+              </a>
+              <a
+                href={`mailto:${process.env.NEXT_PUBLIC_COMPANY_EMAIL}`}
+                className="flex items-center"
+              >
                 <Mail className="h-6 w-6 text-primary mr-4" />
                 <span className="text-stone-700">
                   {process.env.NEXT_PUBLIC_COMPANY_EMAIL}
                 </span>
-              </div>
+              </a>
               <div className="flex items-center">
-                <MapPin className="h-6 w-6 text-primary mr-4" />
-                <span className="text-stone-700">
-                  123 Design Street, New York, NY 10001
+                <MapPin className="h-6 w-6 shrink-0 text-primary mr-4" />
+                <span className="text-stone-700 capitalize">
+                  S.C.O 123 school road new furniture market, Baltana Chandigarh
+                  India
                 </span>
               </div>
             </div>
@@ -51,22 +44,24 @@ function ContactSection() {
               </h3>
               <div className="flex space-x-4">
                 <a
-                  href="#"
-                  className="text-stone-600 hover:text-primary transition-colors duration-300"
+                  href="https://www.instagram.com/modern_makeover_studio1/?igsh=NG00dnZpeDc0N213&utm_source=qr"
+                  className="text-stone-700 hover:text-primary transition-colors duration-300 flex gap-1"
+                  aria-label="Instagram"
+                  target="_blank"
                 >
-                  <Instagram size={24} />
+                  <Instagram size={24} /> Instagram
                 </a>
-                <a
+                {/* <a
                   href="#"
                   className="text-stone-600 hover:text-primary transition-colors duration-300"
                 >
                   <Facebook size={24} />
-                </a>
+                </a> */}
               </div>
             </div>
           </div>
 
-          <div>
+          {/* <div>
             <Card className="border-0 shadow-xl">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-semibold text-stone-800 mb-6">
@@ -105,7 +100,7 @@ function ContactSection() {
                 </form>
               </CardContent>
             </Card>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

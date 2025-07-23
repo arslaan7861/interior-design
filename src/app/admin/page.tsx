@@ -28,7 +28,7 @@ export default async function Dashboard({
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <h1 className="md:text-2xl font-bold text-stone-800">
-                Chadigarh<span className="text-amber-600">Decor</span>
+                Chadigarh<span className="text-primary">Decor</span>
               </h1>
             </div>
             <div className="flex items-center space-x-4">
@@ -43,7 +43,6 @@ export default async function Dashboard({
           <>
             <FurniturePanel category={category} />
             <Projects />
-            {/* ========== TESTIMONIALS TAB ========== */}
             <TestimonialPanel />
           </>
         </AdminPageTabs>

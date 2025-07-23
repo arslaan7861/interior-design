@@ -1,7 +1,7 @@
 import { heroContent } from "@/lib/dummydata";
 import React from "react";
 import { Button } from "../ui/button";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, NotebookPen } from "lucide-react";
 import Image from "next/image";
 
 function HeroSection() {
@@ -49,15 +49,18 @@ function HeroSection() {
               View Collections
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-stone-800 px-8 py-3 bg-transparent backdrop-blur-sm transform hover:scale-105 transition-all duration-300 group"
-              aria-label="Watch our brand story"
-            >
-              <Play className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
-              Watch Story
-            </Button>
+            <a href="tel:+918699062901">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white text-white capitalize hover:bg-white hover:text-stone-800 px-8 py-3 bg-transparent backdrop-blur-sm transform hover:scale-105 transition-all duration-300 group w-full"
+                aria-label="Watch our brand story"
+              >
+                {" "}
+                <NotebookPen className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
+                Consult our designer
+              </Button>
+            </a>
           </div>
         </div>
       </div>

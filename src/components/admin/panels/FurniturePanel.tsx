@@ -14,7 +14,9 @@ import EmptyMessage from "./EmptyMessage";
 
 async function FurniturePanel({ category }: { category: string }) {
   await connectDb();
-  const extractedfurniture = await FurnitureModel.find().lean();
+  const extractedfurniture = await FurnitureModel.find()
+    .sort({ createdAt: -1 })
+    .lean();
   const furniture = (
     extractedfurniture.map(({ _id, createdAt, updatedAt, __v, ...rest }) => {
       return {
@@ -23,9 +25,9 @@ async function FurniturePanel({ category }: { category: string }) {
       };
       console.log(createdAt, updatedAt, __v);
     }) as IFurniture[]
-  )
-    .filter((item) => category === "all" || item.category === category)
-    .reverse() as IFurniture[];
+  ).filter(
+    (item) => category === "all" || item.category === category
+  ) as IFurniture[];
   return (
     <TabsContent value="furniture" className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">

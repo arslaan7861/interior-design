@@ -54,6 +54,7 @@ export async function deleteFurnitureAction({
 
     await FurnitureModel.findByIdAndDelete(_id);
     revalidatePath("/");
+    revalidatePath("/item");
     console.log("Deleted furniture");
 
     return { message: "Deleted successfully", status: true };

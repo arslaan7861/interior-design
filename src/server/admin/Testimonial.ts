@@ -25,3 +25,8 @@ export async function deleteTestimonialAction(id: string) {
     return { message: "Failed to delete", status: false };
   }
 }
+
+export async function getLength() {
+  const count = await TestimonialModel.countDocuments();
+  return count;
+}

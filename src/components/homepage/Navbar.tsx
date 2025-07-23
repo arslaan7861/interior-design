@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { MobileNavBar } from "./MobileNavBar";
 
 function Navbar() {
   const pathname = usePathname();
@@ -60,13 +61,15 @@ function Navbar() {
               )
             )}
           </ul>
-
-          <Button
-            className="bg-primary hover:bg-primary/90 text-white px-8 py-3 transform hover:scale-105 transition-all duration-300 hover:shadow-2xl group"
-            aria-label="Book a consultation"
-          >
-            Book Consultation
-          </Button>
+          <a href="tel:+918699062901" className="hidden md:block">
+            <Button
+              className="bg-primary hover:bg-primary/90 text-white px-8 py-3 transform hover:scale-105 transition-all duration-300 hover:shadow-2xl group"
+              aria-label="Book a consultation"
+            >
+              Book Consultation
+            </Button>
+          </a>
+          <MobileNavBar isScrolled={isScrolled} />
         </div>
       </nav>
     </header>

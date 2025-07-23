@@ -8,8 +8,10 @@ import { ITestimonial, TestimonialModel } from "@/server/DB/TestimonialModel";
 import { ObjectId } from "mongoose";
 import DeleteTestimonialButton from "../buttons/TestimonialDeleteButton";
 import EmptyMessage from "./EmptyMessage";
+import connectDb from "@/server/DB";
 
 async function TestimonialPanel() {
+  await connectDb();
   const dBtestimonials = await TestimonialModel.find().lean();
   const testimonials = dBtestimonials.map(
     ({ _id, createdAt, updatedAt, __v, ...rest }) => {

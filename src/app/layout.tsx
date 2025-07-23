@@ -83,7 +83,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-background  w-screen h-svh overflow-x-hidden">
+      <body className="bg-background  w-screen h-svh overflow-x-hidden scroll-smooth">
         <Toaster position="top-center" />
         <Suspense fallback={<></>}>
           <Toast />

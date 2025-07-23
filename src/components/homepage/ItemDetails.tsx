@@ -11,6 +11,7 @@ import {
 import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { IndianRupee } from "lucide-react";
+import { IFurniture } from "@/server/DB/FurnitureModel";
 export interface furnitureItemType {
   id: number;
   name: string;
@@ -21,7 +22,7 @@ export interface furnitureItemType {
   description: string;
 }
 
-export function ItemDetails({ item }: { item: furnitureItemType }) {
+export function ItemDetails({ item }: { item: IFurniture }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -35,7 +36,7 @@ export function ItemDetails({ item }: { item: furnitureItemType }) {
             <div className="w-full relative sm:h-48 flex flex-col sm:flex-row items-center gap-4">
               <section className="relative h-32 sm:h-full aspect-video  sm:aspect-square overflow-clip rounded-sm">
                 <Image
-                  src={item.image}
+                  src={item.image_url}
                   alt={item.name}
                   fill
                   className="shadow-sm object-cover"

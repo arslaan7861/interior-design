@@ -1,23 +1,14 @@
-"use client";
-import { testimonials } from "@/lib/dummydata";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
-import React, { useState } from "react";
+import TestimonalCarousel from "./TestimonalCarousel";
+import { ITestimonial } from "@/server/DB/TestimonialModel";
 import { Card, CardContent } from "../ui/card";
-import Image from "next/image";
+import { Avatar, AvatarFallback } from "../ui/avatar";
+import { Star } from "lucide-react";
 
-function Testimonials() {
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
-
-  const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-  };
-
-  const prevTestimonial = () => {
-    setCurrentTestimonial(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length
-    );
-  };
-
+async function Testimonials({
+  testimonials,
+}: {
+  testimonials: ITestimonial[];
+}) {
   return (
     <section className="py-20 bg-white" aria-label="Client Testimonials">
       <div className="container mx-auto px-6">
@@ -30,89 +21,58 @@ function Testimonials() {
           </p>
         </header>
 
-        <div className="relative max-w-4xl mx-auto">
-          <div className="overflow-hidden">
-            <div
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentTestimonial * 100}%)` }}
-            >
-              {testimonials.map((testimonial) => (
-                <div key={testimonial.id} className="w-full flex-shrink-0 px-8">
-                  <Card className="border-0 shadow-lg">
-                    <CardContent className="p-8 text-center">
-                      <figure>
-                        <div
-                          className="flex justify-center mb-4"
-                          aria-label={`Rating: ${testimonial.rating} out of 5`}
-                        >
-                          {[...Array(testimonial.rating)].map((_, i) => (
-                            <Star
-                              key={i}
-                              className="h-5 w-5 fill-amber-400 text-amber-400"
-                              aria-hidden="true"
-                            />
-                          ))}
+        <TestimonalCarousel testimonials={testimonials}>
+          <>
+            {testimonials.map((testimonial) => (
+              <div
+                key={testimonial._id}
+                className="w-full flex-shrink-0 px-8 border flex flex-col justify-center"
+              >
+                <Card key={testimonial._id} className="group border ">
+                  <CardContent className="p-4">
+                    <div className="space-y-4">
+                      <div className="flex items-center space-x-3 ">
+                        <Avatar className="h-12 aspect-square w-12">
+                          <AvatarFallback>
+                            {testimonial.name
+                              .split(" ")
+                              .map((w) => w[0])
+                              .join("")}
+                          </AvatarFallback>
+                        </Avatar>
+
+                        <div>
+                          <h3 className="font-semibold text-stone-800 break-all">
+                            {testimonial.name}
+                          </h3>
+                          <p className="text-sm text-stone-600">
+                            {testimonial.role}
+                          </p>
                         </div>
-                        <blockquote className="text-lg text-stone-700 mb-6 italic">
-                          &quot;{testimonial.content}&quot;
-                        </blockquote>
-                        <figcaption className="flex items-center justify-center">
-                          <div className="w-12 h-12 rounded-full mr-4 relative overflow-clip">
-                            <Image
-                              fill
-                              src={testimonial.image || "/placeholder.svg"}
-                              alt={testimonial.name}
-                            />
-                          </div>
-                          <div>
-                            <h4 className="font-semibold text-stone-800">
-                              {testimonial.name}
-                            </h4>
-                            <p className="text-stone-600 text-sm">
-                              {testimonial.role}
-                            </p>
-                          </div>
-                        </figcaption>
-                      </figure>
-                    </CardContent>
-                  </Card>
-                </div>
-              ))}
-            </div>
-          </div>
+                      </div>
 
-          <button
-            onClick={prevTestimonial}
-            aria-label="Previous testimonial"
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 text-stone-400 hover:text-primary transition-colors duration-300"
-          >
-            <ChevronLeft size={32} />
-          </button>
-
-          <button
-            onClick={nextTestimonial}
-            aria-label="Next testimonial"
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 text-stone-400 hover:text-primary transition-colors duration-300"
-          >
-            <ChevronRight size={32} />
-          </button>
-
-          <div
-            className="flex justify-center mt-8 space-x-2"
-            role="group"
-            aria-label="Testimonial slide indicators"
-          >
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                aria-label={`Show testimonial ${index + 1}`}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentTestimonial ? "bg-primary" : "bg-stone-300"
-                }`}
-              />
+                      <blockquote className="text-sm text-stone-700 italic">
+                        &quot;{testimonial.content}&quot;
+                      </blockquote>
+                    </div>{" "}
+                    <div className="flex items-center justify-center md:justify-start py-4 space-x-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`h-4 w-4 ${
+                            i < testimonial.rating
+                              ? "fill-amber-400 text-amber-400"
+                              : "text-stone-300"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             ))}
-          </div>
-        </div>
+          </>
+        </TestimonalCarousel>
       </div>
     </section>
   );

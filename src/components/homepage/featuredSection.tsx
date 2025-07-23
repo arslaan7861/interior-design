@@ -1,13 +1,11 @@
 import React from "react";
 import { Button } from "../ui/button";
-import { Card, CardContent } from "../ui/card";
-import { featuredFurniture } from "@/lib/dummydata";
-import { Badge } from "../ui/badge";
-import Image from "next/image";
-import Link from "next/link";
-import { ItemDetails } from "./ItemDetails";
 
-function FeaturedSection() {
+import Link from "next/link";
+import FurnitureCard from "./Cards/furnitureCard";
+import { IFurniture } from "@/server/DB/FurnitureModel";
+
+async function FeaturedSection({ furnitures }: { furnitures: IFurniture[] }) {
   return (
     <section
       id="collections"
@@ -26,13 +24,14 @@ function FeaturedSection() {
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredFurniture.map((item) => (
+          {furnitures.map((item) => (
             <article
-              key={item.id}
+              key={item._id}
               className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 scroll-animate"
               aria-label={`Featured item: ${item.name}`}
             >
-              <Card className="overflow-hidden">
+              <FurnitureCard item={item} />
+              {/* <Card className="overflow-hidden">
                 <figure className="relative overflow-hidden">
                   <div className="w-full h-64 object-cover relative transition-all duration-700 group-hover:scale-110 group-hover:rotate-1">
                     <Image
@@ -41,21 +40,11 @@ function FeaturedSection() {
                       fill
                     />
                   </div>
-                  {item.isNew && (
-                    <Badge className="absolute top-4 left-4 bg-primary hover:bg-primary/90 animate-pulse">
-                      New
-                    </Badge>
-                  )}
+
+                  <Badge className="absolute top-4 left-4 bg-primary hover:bg-primary/90 animate-pulse">
+                    New
+                  </Badge>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300" />
-                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
-                    <Button
-                      size="sm"
-                      className="bg-white text-stone-800 hover:bg-primary hover:text-white"
-                      aria-label={`Quick view ${item.name}`}
-                    >
-                      Quick View
-                    </Button>
-                  </div>
                   <figcaption className="sr-only">
                     {item.name} - {item.category}
                   </figcaption>
@@ -73,7 +62,7 @@ function FeaturedSection() {
                   <p className="text-stone-600 mb-4">{item.category}</p>
                   <ItemDetails item={item} />
                 </CardContent>
-              </Card>
+              </Card> */}
             </article>
           ))}
         </div>

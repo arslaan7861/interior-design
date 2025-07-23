@@ -2,21 +2,39 @@ import { ItemDetails } from "@/components/homepage/ItemDetails";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { featuredFurniture, productsCategories } from "@/lib/dummydata";
+import { productsCategories } from "@/lib/dummydata";
+import connectDb from "@/server/DB";
+import { FurnitureModel, IFurniture } from "@/server/DB/FurnitureModel";
+import { ObjectId } from "mongoose";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-
+export const dynamic = "force-static";
 async function ItemsPage({
   searchParams,
 }: {
   searchParams: Promise<{ selectedFilter?: string }>;
 }) {
+  await connectDb();
+  const featuredFurniture = await FurnitureModel.find()
+    .sort({ createdAt: -1 }) // Sort by newest first
+    .limit(6)
+    .lean();
+
+  const furnitures = featuredFurniture.map(
+    ({ _id, createdAt, updatedAt, __v, ...rest }) => {
+      return {
+        ...rest,
+        _id: (_id as ObjectId).toString(),
+      };
+      console.log(createdAt, updatedAt, __v);
+    }
+  ) as IFurniture[];
   const { selectedFilter = "All" } = await searchParams;
   const filteredItems =
     selectedFilter === "All"
-      ? featuredFurniture
-      : featuredFurniture.filter((item) => item.category === selectedFilter);
+      ? furnitures
+      : furnitures.filter((item) => item.category === selectedFilter);
   return (
     <div className="h-full w-full pt-24 px-8">
       <div className="flex flex-wrap justify-center md:justify-start gap-4 mb-8 scroll-animate">
@@ -39,13 +57,13 @@ async function ItemsPage({
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filteredItems.map((item) => (
           <Card
-            key={item.id}
+            key={item._id}
             className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 scroll-animate"
           >
             <div className="relative overflow-hidden">
               <div className="w-full h-64 object-cover relative transition-all duration-700 group-hover:scale-110 group-hover:rotate-1">
                 <Image
-                  src={item.image || "/placeholder.svg"}
+                  src={item.image_url || "/placeholder.svg"}
                   alt={item.name}
                   fill
                 />
