@@ -80,8 +80,8 @@ async function FurniturePanel({ category }: { category: string }) {
               </div>
               <CardContent className="p-6">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-semibold text-stone-800 group-hover:text-primary transition-colors duration-300">
-                    {item.name}
+                  <h3 className="text-xl font-semibold text-stone-800 group-hover:text-primary transition-colors duration-300 flex justify-between relative w-full">
+                    {item.name}                  <DeleteFurnitureButton item={item} />
                   </h3>
                   <h4 className="text-xl flex items-center text-primary">
                     <IndianRupee className="h-4" />
