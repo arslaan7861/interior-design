@@ -8,6 +8,7 @@ import { ITestimonial, TestimonialModel } from "@/server/DB/TestimonialModel";
 import { ObjectId } from "mongoose";
 import { FurnitureModel, IFurniture } from "@/server/DB/FurnitureModel";
 import { IProject, ProjectModel } from "@/server/DB/ProjectModel";
+import AboutServices from "@/components/homepage/AboutServices";
 export const dynamic = "force-static";
 export default async function InteriorDesignWebsite() {
   await connectDb();
@@ -50,6 +51,7 @@ export default async function InteriorDesignWebsite() {
     <>
       {/* Hero Section */}
       <HeroSection />
+      <AboutServices />
       {/* Featured Furniture */}
       <FeaturedSection furnitures={furnitures} />
       {/* Projects Showcase */}

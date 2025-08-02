@@ -40,7 +40,9 @@ function FurnitureCard({ item }: { item: IFurniture }) {
             </p>
           </h4>
         </div>
-        <p className="text-stone-600 mb-4">{item.category}</p>
+        <Badge variant={"secondary"} className="text-stone-600 mb-4">
+          {item.category}
+        </Badge>
         <ItemDetails item={item} />
       </CardContent>
     </Card>
