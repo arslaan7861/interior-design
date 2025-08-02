@@ -27,7 +27,7 @@ async function FeaturedSection({ furnitures }: { furnitures: IFurniture[] }) {
           {furnitures.map((item) => (
             <article
               key={item._id}
-              className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 scroll-animate"
+              className="group overflow-hidden border-0 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 scroll-animate"
               aria-label={`Featured item: ${item.name}`}
             >
               <FurnitureCard item={item} />
