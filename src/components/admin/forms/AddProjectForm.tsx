@@ -73,10 +73,14 @@ function AddProjectForm() {
   async function onSubmit(formData: ProjectFormData) {
     try {
       setIsLoading(true);
+      toast.info("Adding project");
+
       const { message, status } = await newProjectAction(formData);
       if (!status) return toast.error(message);
       toast.success(message);
       reset();
+      setPreview(null);
+      setIsAddingFurniture(false);
       router.refresh();
     } catch {
       toast.error("Upload failed please try again");
