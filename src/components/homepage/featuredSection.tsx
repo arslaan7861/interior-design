@@ -75,7 +75,7 @@ async function FeaturedSection({ furnitures }: { furnitures: IFurniture[] }) {
             className="text-lg"
             aria-label="See more furniture items"
           >
-            <Link href={"/item"}>See More</Link>
+            <Link href={"/collections"}>See More</Link>
           </Button>
         </div>
       </div>

@@ -1,6 +1,8 @@
 import { Instagram } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
+import { navItems } from "./MobileNavBar";
+import Link from "next/link";
 
 function Footer() {
   return (
@@ -71,15 +73,15 @@ function Footer() {
               Company
             </h4>
             <ul className="space-y-2 text-stone-300">
-              {["About Us", "Our Team", "Portfolio", "Careers"].map((item) => (
-                <li key={item}>
-                  <a
-                    href="#"
+              {navItems.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
                     className="hover:text-primary transition-colors duration-300"
-                    aria-label={item}
+                    aria-label={`Go to ${item.label} section`}
                   >
-                    {item}
-                  </a>
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -96,10 +98,18 @@ function Footer() {
                 India
               </p>
               <article className="flex flex-col items-start">
-                <Button variant={"ghost"} asChild className="px-0">
+                <Button
+                  variant={"ghost"}
+                  asChild
+                  className="px-0 hover:bg-transparent hover:text-primary"
+                >
                   <a href="tel:+918699062901">+91 8699062901 </a>
                 </Button>{" "}
-                <Button variant={"ghost"} asChild className="px-0">
+                <Button
+                  variant={"ghost"}
+                  asChild
+                  className="px-0 hover:bg-transparent hover:text-primary"
+                >
                   <a href="tel:+919357757976">+91 9357757976 </a>
                 </Button>
               </article>

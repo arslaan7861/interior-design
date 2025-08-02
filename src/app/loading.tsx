@@ -1,8 +1,12 @@
-import { PageLoadingScreen } from "@/components/Global/Loading";
+import { LoadingScreen } from "@/components/Global/Loading";
 import React from "react";
 
 function Loading() {
-  return <PageLoadingScreen />;
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <LoadingScreen size="lg" message="Loading..." />
+    </div>
+  );
 }
 
 export default Loading;

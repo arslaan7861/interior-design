@@ -4,10 +4,11 @@ import Image from "next/image";
 import React from "react";
 import { ItemDetails } from "../ItemDetails";
 import { IFurniture } from "@/server/DB/FurnitureModel";
+import { IndianRupee } from "lucide-react";
 
 function FurnitureCard({ item }: { item: IFurniture }) {
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden pt-0">
       <figure className="relative overflow-hidden">
         <div className="w-full h-64 object-cover relative transition-all duration-700 group-hover:scale-110 group-hover:rotate-1">
           <Image
@@ -27,13 +28,17 @@ function FurnitureCard({ item }: { item: IFurniture }) {
       </figure>
 
       <CardContent className="p-6">
-        <div className="flex justify-between items-start mb-2">
+        <div className="flex justify-between flex-col items-start mb-2">
           <h3 className="text-xl font-semibold text-stone-800 group-hover:text-primary transition-colors duration-300">
             {item.name}
           </h3>
-          <span className="text-lg font-bold text-primary transform group-hover:scale-110 transition-transform duration-300">
+          <h4 className="text-xl flex items-center text-primary">
+            <IndianRupee className="h-4 w-4" />
             {item.price}
-          </span>
+            <p className="px-2 text-xs pt-2 line-through text-gray-400">
+              {Math.floor(item.price * 1.2)}
+            </p>
+          </h4>
         </div>
         <p className="text-stone-600 mb-4">{item.category}</p>
         <ItemDetails item={item} />

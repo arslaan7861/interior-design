@@ -22,7 +22,7 @@ export const navItems = [
   {
     label: "Collections",
     icon: Boxes,
-    href: "/item",
+    href: "/collections",
   },
   {
     label: "Projects",
@@ -32,7 +32,7 @@ export const navItems = [
   {
     label: "About",
     icon: Info,
-    href: "/#about",
+    href: "/about",
   },
   {
     label: "Contact",

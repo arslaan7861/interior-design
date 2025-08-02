@@ -23,7 +23,7 @@ function TestimonalCarousel({
   };
   return (
     <div className="relative max-w-4xl mx-auto">
-      <div className="overflow-hidden border">
+      <div className="overflow-hidden">
         <div
           className="flex transition-transform duration-500 ease-in-out"
           style={{ transform: `translateX(-${currentTestimonial * 100}%)` }}

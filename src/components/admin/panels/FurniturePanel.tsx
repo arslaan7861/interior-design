@@ -73,18 +73,14 @@ async function FurniturePanel({ category }: { category: string }) {
                     New
                   </Badge>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-                <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
-                  <DeleteFurnitureButton item={item} />
-                </div>
               </div>
               <CardContent className="p-6">
-                <div className="flex justify-between items-start mb-2">
+                <div className="flex justify-between items-start mb-2 flex-col">
                   <h3 className="text-xl font-semibold text-stone-800 group-hover:text-primary transition-colors duration-300 flex justify-between relative w-full">
-                    {item.name}                  <DeleteFurnitureButton item={item} />
+                    {item.name} <DeleteFurnitureButton item={item} />
                   </h3>
                   <h4 className="text-xl flex items-center text-primary">
-                    <IndianRupee className="h-4" />
+                    <IndianRupee className="h-4 w-4" />
                     {item.price}
                     <p className="px-2 text-xs pt-2 line-through text-gray-400">
                       {Math.floor(item.price * 1.2)}

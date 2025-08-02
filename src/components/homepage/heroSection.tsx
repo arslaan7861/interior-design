@@ -56,7 +56,6 @@ function HeroSection() {
                 className="border-white text-white capitalize hover:bg-white hover:text-stone-800 px-8 py-3 bg-transparent backdrop-blur-sm transform hover:scale-105 transition-all duration-300 group w-full"
                 aria-label="Watch our brand story"
               >
-                {" "}
                 <NotebookPen className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
                 Consult our designer
               </Button>

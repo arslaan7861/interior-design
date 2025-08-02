@@ -33,8 +33,8 @@ export function ItemDetails({ item }: { item: IFurniture }) {
       <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>
-            <div className="w-full relative sm:h-48 flex flex-col sm:flex-row items-center gap-4">
-              <section className="relative h-32 sm:h-full aspect-video  sm:aspect-square overflow-clip rounded-sm">
+            <div className="w-full relative sm:h-min flex flex-col sm:flex-row items-center gap-4">
+              <section className="relative h-32 sm:h-48 aspect-video  sm:aspect-square overflow-clip rounded-sm">
                 <Image
                   src={item.image_url}
                   alt={item.name}
@@ -56,7 +56,9 @@ export function ItemDetails({ item }: { item: IFurniture }) {
                     {Math.floor(item.price * 1.2)}
                   </p>
                 </h4>
-                <DialogDescription> {item.description}</DialogDescription>
+                <DialogDescription className="h-min">
+                  {item.description}
+                </DialogDescription>
               </article>
             </div>
           </DialogTitle>
