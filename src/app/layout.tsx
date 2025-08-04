@@ -66,7 +66,8 @@ export const metadata: Metadata = {
   },
   verification: {
     // google: "3QguOaw_AqS7_76Gaozq2_2Sh1h6CYdaVacxa5s2cuw",
-    google: "M_3GYP7s_wcGPNEWE9dn0yrRIwx_BN28HiigRYdYeD4",
+    google: "ldEVTtZN1ZsfybvPV7CKOH-sZ4gJJUFNUjvnEnUutZM",
+    // google: "M_3GYP7s_wcGPNEWE9dn0yrRIwx_BN28HiigRYdYeD4",
   },
 };
 {
@@ -74,6 +75,12 @@ export const metadata: Metadata = {
   name="google-site-verification"
   content="M_3GYP7s_wcGPNEWE9dn0yrRIwx_BN28HiigRYdYeD4"
 />; */
+  {
+    /* <meta
+  name="google-site-verification"
+  content="ldEVTtZN1ZsfybvPV7CKOH-sZ4gJJUFNUjvnEnUutZM"
+/>; */
+  }
 }
 
 export default async function RootLayout({

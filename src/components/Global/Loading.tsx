@@ -71,7 +71,7 @@ export function LoadingScreen({
         size === "full" ? "min-h-screen" : ""
       }`}
     >
-      <Card className="shadow-none md:shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
+      <Card className="shadow-none border-0">
         <CardContent
           className={`p-8 ${getSizeClasses()} flex flex-col items-center justify-center space-y-4`}
         >

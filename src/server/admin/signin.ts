@@ -35,7 +35,7 @@ export async function AttachTokenAction() {
     });
     console.log("signed success");
 
-    return "/admin?message=Welcome adminame";
+    return "/admin?message=Welcome Izaan";
   } catch (error) {
     console.log(error);
     return "/admin/login";
