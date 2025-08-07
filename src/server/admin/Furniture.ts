@@ -24,7 +24,7 @@ export async function newFurnitureAction({
 
     const { public_id, secure_url } = await uploadCloudinary(file);
     await connectDb();
-    const newFurniture = await FurnitureModel.insertOne({
+    await FurnitureModel.insertOne({
       category,
       name,
       price,
