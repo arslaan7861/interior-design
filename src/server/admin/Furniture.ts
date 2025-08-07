@@ -32,7 +32,6 @@ export async function newFurnitureAction({
       image_url: secure_url,
       image_public_id: public_id,
     });
-    console.log({ newFurniture });
     revalidatePath("/");
     return { message: "Added successfully", status: true };
   } catch {
@@ -49,7 +48,6 @@ export async function deleteFurnitureAction({
 }) {
   try {
     await connectDb();
-    console.log({ _id, publicId });
     await deleteFromCloudinary(publicId);
 
     await FurnitureModel.findByIdAndDelete(_id);

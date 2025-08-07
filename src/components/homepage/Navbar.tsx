@@ -41,7 +41,7 @@ function Navbar() {
           </Link>
 
           <ul
-            className="hidden md:flex items-center space-x-8"
+            className="hidden lg:flex items-center space-x-8"
             aria-label="Site sections"
           >
             {navItems.map((item) => (
@@ -64,7 +64,7 @@ function Navbar() {
 ?text=${encodeURIComponent(
               "Hi! I'm interested in booking a consultation for interior design services."
             )}`}
-            className="hidden md:block"
+            className="hidden lg:block"
             target="_blank"
           >
             <Button

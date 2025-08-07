@@ -44,10 +44,10 @@ export const navItems = [
 export function MobileNavBar({ isScrolled }: { isScrolled: boolean }) {
   return (
     <Sheet>
-      <SheetTrigger asChild className="md:hidden">
+      <SheetTrigger asChild className="lg:hidden">
         <Menu className={cn("h-6", isScrolled ? "text-black" : "text-white")} />
       </SheetTrigger>
-      <SheetContent side="bottom" className="md:hidden pb-8">
+      <SheetContent side="bottom" className="lg:hidden pb-8">
         <SheetHeader>
           <SheetTitle className="text-center">
             Chandigarh<span className="text-primary">Decor</span>

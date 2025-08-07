@@ -7,9 +7,10 @@ import { Suspense } from "react";
 export const metadata: Metadata = {
   title: "Chandigarh Decor",
   description:
-    "Transform your home or office with professional interior design services. Modern, luxurious, and personalized designs.",
+    "Ready to transform your space? Get in touch with our design experts for a personalized consultation.",
   keywords: [
-    "interior design services",
+    "Chandigarh Decor",
+    "interior designers",
     "custom furniture design",
     "modular kitchen design",
     "luxury interior design",
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     "contemporary furniture design",
 
     // Location-Based (Chandigarh & Punjab)
-    "interior designers in Chandigarh",
+    "Best interior designers in Chandigarh",
     "custom furniture in Chandigarh",
     "modular furniture in Punjab",
     "home interior design in Punjab",
@@ -49,11 +50,23 @@ export const metadata: Metadata = {
     title: "Interior Design Company | Elegant Spaces by Chandigarh Decor",
     description:
       "Explore our portfolio of modern, elegant interiors for homes and offices.",
-    url: "https://modern-makeover.vercel.app",
+    url: "https://chandigarhdecor.app",
     type: "website",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/images/big-hero-1.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Modern Living Room Design",
+      },
+      {
+        url: "/images/big-hero-2.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Modern Living Room Design",
+      },
+      {
+        url: "/images/big-hero-3.jpg",
         width: 1200,
         height: 630,
         alt: "Modern Living Room Design",
@@ -65,23 +78,9 @@ export const metadata: Metadata = {
     follow: true,
   },
   verification: {
-    // google: "3QguOaw_AqS7_76Gaozq2_2Sh1h6CYdaVacxa5s2cuw",
     google: "ldEVTtZN1ZsfybvPV7CKOH-sZ4gJJUFNUjvnEnUutZM",
-    // google: "M_3GYP7s_wcGPNEWE9dn0yrRIwx_BN28HiigRYdYeD4",
   },
 };
-{
-  /* <meta
-  name="google-site-verification"
-  content="M_3GYP7s_wcGPNEWE9dn0yrRIwx_BN28HiigRYdYeD4"
-/>; */
-  {
-    /* <meta
-  name="google-site-verification"
-  content="ldEVTtZN1ZsfybvPV7CKOH-sZ4gJJUFNUjvnEnUutZM"
-/>; */
-  }
-}
 
 export default async function RootLayout({
   children,
