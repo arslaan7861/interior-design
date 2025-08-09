@@ -18,7 +18,7 @@ export async function sendAdminMail() {
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: "arslaanansari7861@gmail.com",
+      to: "Izaanansari913@gmail.com",
       subject: "Admin Login Access | Interior Design Panel",
       html: `
           <div style="font-family: Arial, sans-serif; color: #333; padding: 20px;">
