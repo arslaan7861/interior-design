@@ -9,7 +9,6 @@ export const metadata: Metadata = {
   description:
     "Ready to transform your space? Get in touch with our design experts for a personalized consultation.",
   keywords: [
-    // keep your keyword list
     "Chandigarh Decor",
     "interior designers",
     "custom furniture design",
@@ -42,7 +41,7 @@ export const metadata: Metadata = {
     canonical: "https://chandigarhdecor.com",
   },
   icons: {
-    icon: "/favicon.png", // Place favicon.png in public/
+    icon: "/favicon.png", // place favicon.png in public/
   },
   openGraph: {
     title: "Interior Design Company | Elegant Spaces by Chandigarh Decor",
@@ -81,7 +80,8 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    maxSnippet: -1, // Prevents "5 days ago" from showing
+    "max-snippet": -1, // prevents "5 days ago"
+    "max-image-preview": "large", // ensures OG image shows full size
   },
   verification: {
     google: "ldEVTtZN1ZsfybvPV7CKOH-sZ4gJJUFNUjvnEnUutZM",
