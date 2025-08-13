@@ -18,7 +18,7 @@ export default async function AdminVerificationPage({
   searchParams,
 }: VerificationPageProps) {
   // Simulate token verification on component mount
-  const userEmail = "asd@gmail.com";
+  const userEmail = process.env.NEXT_PUBLIC_OWNER_EMAIL!;
   const params = await searchParams;
   console.log({ params });
 

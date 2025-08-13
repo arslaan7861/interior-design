@@ -50,7 +50,7 @@ async function ItemsPage({
             style={{ animationDelay: `${index * 50}ms` }}
             asChild
           >
-            <Link href={`/collections?selectedFilter=${category}`}>
+            <Link href={`/furniture?selectedFilter=${category}`}>
               {category}
             </Link>
           </Button>

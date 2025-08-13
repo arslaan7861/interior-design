@@ -9,9 +9,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { Menu } from "lucide-react";
+import { Menu, Sofa } from "lucide-react";
 import Link from "next/link";
-import { Home, Boxes, FolderKanban, Info, Mail } from "lucide-react";
+import { Home, FolderKanban, Info, Mail } from "lucide-react";
 
 export const navItems = [
   {
@@ -20,9 +20,9 @@ export const navItems = [
     href: "/#home",
   },
   {
-    label: "Collections",
-    icon: Boxes,
-    href: "/collections",
+    label: "Furnitures",
+    icon: Sofa,
+    href: "/furniture",
   },
   {
     label: "Projects",
