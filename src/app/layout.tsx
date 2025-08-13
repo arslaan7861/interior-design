@@ -36,9 +36,9 @@ export const metadata: Metadata = {
     "book interior design consultation Chandigarh",
     "get quote for custom furniture in Punjab",
   ],
-  metadataBase: new URL("https://chandigarhdecor.com"),
+  metadataBase: new URL("https://www.chandigarhdecor.com"),
   alternates: {
-    canonical: "https://chandigarhdecor.com",
+    canonical: "https://www.chandigarhdecor.com",
   },
   icons: {
     icon: "/favicon.png", // place favicon.png in public/
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     title: "Interior Design Company | Elegant Spaces by Chandigarh Decor",
     description:
       "Explore our portfolio of modern, elegant interiors for homes and offices.",
-    url: "https://chandigarhdecor.com",
+    url: "https://www.chandigarhdecor.com",
     type: "website",
     images: [
       {
