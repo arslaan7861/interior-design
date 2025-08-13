@@ -3,6 +3,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import Toast from "@/components/Global/Toast";
 import { Suspense } from "react";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Chandigarh Decor",
@@ -95,6 +96,25 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* ✅ Google Analytics Scripts */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-7VH7ZFT415"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="gtag-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-7VH7ZFT415');
+        `,
+          }}
+        />
+      </head>
       <body className="bg-background w-screen h-svh overflow-x-hidden scroll-smooth">
         <Toaster position="top-center" />
         <Suspense fallback={null}>
