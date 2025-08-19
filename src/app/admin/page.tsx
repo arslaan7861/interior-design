@@ -6,6 +6,7 @@ import { verifyAdmin } from "@/server/admin/signin";
 import { redirect } from "next/navigation";
 import Footer from "@/components/homepage/Footer";
 import LogoutButton from "@/components/admin/buttons/LogoutButton";
+import PWA from "@/components/Global/PWA";
 
 export default async function Dashboard({
   searchParams,
@@ -37,6 +38,7 @@ export default async function Dashboard({
           </div>
         </div>
       </header>
+      <PWA />
 
       <div className="container mx-auto px-6 py-8">
         <AdminPageTabs>
