@@ -32,12 +32,12 @@ function Navbar() {
         <div className="container mx-auto px-6 flex items-center justify-between">
           <Link
             href="/"
-            className={`text-2xl font-bold ${
+            className={`text-2xl font-bold font-orbitron ${
               isScrolled ? "text-black" : "text-white"
             }`}
             aria-label="Chandigarh Decor Homepage"
           >
-            Chandigarh<span className="text-primary">Decor</span>
+            Chandigarh<span className="text-primary font-orbitron">Decor</span>
           </Link>
 
           <ul
