@@ -4,7 +4,6 @@ import { TabsContent } from "@/components/ui/tabs";
 
 import { MapPin } from "lucide-react";
 import AddProjectForm from "../forms/AddProjectForm";
-import Image from "next/image";
 import { IProject, ProjectModel } from "@/server/DB/ProjectModel";
 import { ObjectId } from "mongoose";
 import DeleteProjectButton from "../buttons/ProjectDelete";
@@ -20,7 +19,7 @@ async function Projects() {
         ...rest,
         _id: (_id as ObjectId).toString(),
       };
-      console.log(createdAt, updatedAt, __v);
+      console.log({ createdAt, updatedAt, __v });
     }
   ) as IProject[];
 
@@ -48,11 +47,12 @@ async function Projects() {
             >
               <div className="relative overflow-hidden">
                 <div className="w-full h-64 relative transition-all duration-700 group-hover:scale-110 group-hover:rotate-1">
-                  <Image
-                    src={project.video_url || "/placeholder.svg"}
-                    alt={project.name}
-                    className="object-cover"
-                    fill
+                  <video
+                    autoPlay
+                    muted
+                    src={project.video_url}
+                    loop
+                    className="object-cover absolute inset-0 h-full w-full"
                   />
                 </div>
 

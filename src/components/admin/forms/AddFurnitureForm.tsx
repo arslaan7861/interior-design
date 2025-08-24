@@ -21,11 +21,15 @@ import {
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ImageIcon, Loader2, Plus } from "lucide-react";
+import { ImageIcon, Loader2, Plus, Trash2 } from "lucide-react";
 import { newFurnitureAction } from "@/server/admin/Furniture";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-
+import { deleteFromCloudinary, uploadCloudinary } from "@/lib/cloudinary";
+const cloudinaryUploadResponseSchema = z.object({
+  public_id: z.string().min(1, "public_id is required"),
+  secure_url: z.string().url("Invalid image URL"),
+});
 const furnitureSchema = z.object({
   name: z.string().min(1, "Name is required"),
   category: z.string().min(1, "Category is required"),
@@ -35,43 +39,30 @@ const furnitureSchema = z.object({
     })
     .positive("Price must be a positive number"),
   description: z.string().optional(),
-  file: z
-    .custom<File>(
-      (val) => {
-        return val instanceof File;
-      },
-      {
-        message: "Image is required",
-      }
-    )
-    .refine((val) => val.size <= 20 * 1024 * 1024, {
-      message: "Max size exceeded",
-    }),
+  files: z
+    .array(cloudinaryUploadResponseSchema)
+    .min(1, { message: "At least one image is required" }),
 });
 export type FurnitureFormData = z.infer<typeof furnitureSchema>;
+
+export type CloudinaryUploadResponse = z.infer<
+  typeof cloudinaryUploadResponseSchema
+>;
 
 function AddFurnitureForm() {
   const [isAddingFurniture, setIsAddingFurniture] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const [preview, setPreview] = useState<string | null>(null);
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setValue("file", file);
-      const url = URL.createObjectURL(file);
-      setPreview(url);
-      // Optional: cleanup old preview
-      return () => URL.revokeObjectURL(url);
-    }
-  };
-
+  const [previews, setPreviews] = useState<
+    { loading: boolean; preview: string }[]
+  >([{ loading: false, preview: "" }]);
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
     reset,
+    watch,
   } = useForm<FurnitureFormData>({
     resolver: zodResolver(furnitureSchema),
     defaultValues: {
@@ -81,6 +72,61 @@ function AddFurnitureForm() {
       price: 123123,
     },
   });
+  const handleFileChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    i: number
+  ) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setPreviews((p) => {
+        const prevs = [...p];
+        prevs[i].loading = true;
+        prevs[i].preview = url;
+        console.log({ prevs });
+        return [...prevs, { loading: false, preview: "" }];
+      });
+      const { public_id, secure_url } = await uploadCloudinary(file);
+      const prevFiles = [...(watch("files") ?? [])];
+      if (prevFiles[i]?.public_id)
+        await deleteFromCloudinary(prevFiles[i].public_id);
+      prevFiles[i] = { public_id, secure_url };
+      setPreviews((p) => {
+        const prevs = [...p];
+        prevs[i].loading = false;
+        prevs[i].preview = secure_url;
+        console.log({ prevs });
+        return [...prevs];
+      });
+      URL.revokeObjectURL(url);
+
+      setValue("files", prevFiles);
+      // Optional: cleanup old preview
+    }
+  };
+
+  const handleFileDelete = async (i: number) => {
+    try {
+      const public_id = watch("files")[i]?.public_id;
+
+      if (public_id) {
+        await deleteFromCloudinary(public_id);
+      }
+
+      // remove file at index i
+      setValue(
+        "files",
+        (watch("files") ?? []).filter((_, idx) => idx !== i)
+      );
+
+      setPreviews((p) => p.filter((_, idx) => idx !== i));
+      if (previews.length == 0) setPreviews([{ loading: false, preview: "" }]);
+      console.log("deleted");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   async function onSubmit(formData: FurnitureFormData) {
     try {
       setIsLoading(true);
@@ -89,6 +135,7 @@ function AddFurnitureForm() {
       toast.success(message);
       reset();
       setIsAddingFurniture(false);
+      setPreviews([{ loading: false, preview: "" }]);
       router.refresh();
     } catch {
       toast.error("Upload failed please try again");
@@ -110,46 +157,67 @@ function AddFurnitureForm() {
           <DialogTitle>Add New Furniture</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div className="flex flex-col md:flex-row gap-6">
-            <div className="w-full aspect-video md:h-full">
-              <Label
-                htmlFor="file"
-                className="aspect-video w-full md:h-full relative rounded-2xl overflow-clip"
-              >
-                {preview ? (
-                  <img
-                    src={preview}
-                    alt=""
-                    className="object-cover absolute inset-0 h-full w-full"
-                  />
-                ) : (
-                  <div className="flex flex-col items-center justify-center space-y-4 text-center border-4 border-dashed rounded-2xl absolute inset-0">
-                    <div className={`p-4 rounded-full bg-stone-100`}>
-                      <ImageIcon className={`h-8 w-8 text-stone-500`} />
-                    </div>
-                    <div className="space-y-2">
-                      <h3 className="text-lg font-semibold text-stone-800">
-                        Upload Image
-                      </h3>
-                      <p className="text-stone-600">Click to browse</p>
-                      <p className="text-sm text-stone-500">
-                        Supports: Image • Max size: 20MB
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </Label>
-              <Input
-                id="file"
-                type="file"
-                accept="image/*"
-                {...register("file")}
-                className="hidden"
-                onChange={handleFileChange}
-              />
-              {errors.file && (
+          <div className="flex flex-col  gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 place-items-center w-full h-min gap-4 flex-wrap overflow-auto items-center">
+              {previews.map(({ preview, loading }, i) => {
+                console.log({ loading, preview });
+                return (
+                  <Label
+                    key={i}
+                    htmlFor={`file-${i}`}
+                    className="aspect-video h-60 grow-0 relative rounded-2xl overflow-clip"
+                  >
+                    {preview ? (
+                      <>
+                        <Button
+                          variant={"destructive"}
+                          className=" top-2 right-2 absolute z-20"
+                          type="button"
+                          onClick={() => handleFileDelete(i)}
+                        >
+                          <Trash2 />
+                        </Button>
+                        {loading && (
+                          <div className="absolute z-100 inset-0 bg-black/40 grid place-items-center">
+                            <span className="h-8 rounded-full animate-spin aspect-square border-2 border-primary border-b-transparent"></span>
+                          </div>
+                        )}
+                        <img
+                          src={preview}
+                          alt=""
+                          className="object-cover absolute inset-0 h-full w-full"
+                        />
+                      </>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center space-y-4 text-center border-4 border-dashed rounded-2xl absolute inset-0">
+                        <div className={`p-4 rounded-full bg-stone-100`}>
+                          <ImageIcon className={`h-8 w-8 text-stone-500`} />
+                        </div>
+                        <div className="space-y-2">
+                          <h3 className="text-lg font-semibold text-stone-800">
+                            Upload Image
+                          </h3>
+                          <p className="text-stone-600">Click to browse</p>
+                          <p className="text-sm text-stone-500">
+                            Supports: Images
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                    <Input
+                      id={`file-${i}`}
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => handleFileChange(e, i)}
+                    />
+                  </Label>
+                );
+              })}
+
+              {errors.files && (
                 <p className="text-red-500 text-sm p-2">
-                  {errors.file.message}
+                  {errors.files.message}
                 </p>
               )}
             </div>

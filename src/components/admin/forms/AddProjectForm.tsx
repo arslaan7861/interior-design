@@ -109,9 +109,10 @@ function AddProjectForm() {
                 className="aspect-video w-full md:h-full relative rounded-2xl overflow-clip"
               >
                 {preview ? (
-                  <img
+                  <video
+                    autoPlay
+                    muted
                     src={preview}
-                    alt=""
                     className="object-cover absolute inset-0 h-full w-full"
                   />
                 ) : (
@@ -121,12 +122,10 @@ function AddProjectForm() {
                     </div>
                     <div className="space-y-2">
                       <h3 className="text-lg font-semibold text-stone-800">
-                        Upload Image
+                        Upload Video
                       </h3>
                       <p className="text-stone-600">Click to browse</p>
-                      <p className="text-sm text-stone-500">
-                        Supports: Image • Max size: 20MB
-                      </p>
+                      <p className="text-sm text-stone-500">Supports: Videos</p>
                     </div>
                   </div>
                 )}
@@ -134,7 +133,7 @@ function AddProjectForm() {
               <Input
                 id="file"
                 type="file"
-                accept="image/*"
+                accept="video/*"
                 {...register("file")}
                 className="hidden"
                 onChange={handleFileChange}

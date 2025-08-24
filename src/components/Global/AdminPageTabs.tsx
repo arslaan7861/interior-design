@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 
 function AdminPageTabs({ children }: { children: React.ReactNode }) {
-  const [activeTab, setActiveTab] = useState("projects");
+  const [activeTab, setActiveTab] = useState("furniture");
 
   return (
     <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">

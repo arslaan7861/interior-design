@@ -2,7 +2,6 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { IProject } from "@/server/DB/ProjectModel";
 import { MapPin } from "lucide-react";
-import Image from "next/image";
 import React from "react";
 
 function ProjectsCard({ project }: { project: IProject }) {
@@ -13,11 +12,12 @@ function ProjectsCard({ project }: { project: IProject }) {
     >
       <div className="relative overflow-hidden">
         <div className="w-full h-64 relative transition-all duration-700 group-hover:scale-110 group-hover:rotate-1">
-          <Image
-            src={project.video_url || "/placeholder.svg"}
-            alt={project.name}
-            className="object-cover"
-            fill
+          <video
+            autoPlay
+            muted
+            src={project.video_url}
+            loop
+            className="object-cover absolute inset-0 h-full w-full"
           />
         </div>
 

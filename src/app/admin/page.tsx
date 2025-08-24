@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import Footer from "@/components/homepage/Footer";
 import LogoutButton from "@/components/admin/buttons/LogoutButton";
 import PWA from "@/components/Global/PWA";
+import Link from "next/link";
 
 export default async function Dashboard({
   searchParams,
@@ -28,9 +29,11 @@ export default async function Dashboard({
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <h1 className="md:text-2xl font-bold text-stone-800">
-                Chadigarh<span className="text-primary">Decor</span>
-              </h1>
+              <Link href="/">
+                <h1 className="md:text-2xl font-bold text-stone-800">
+                  Chadigarh<span className="text-primary">Decor</span>
+                </h1>
+              </Link>
             </div>
             <div className="flex items-center space-x-4">
               <LogoutButton />

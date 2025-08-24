@@ -12,7 +12,7 @@ function FurnitureCard({ item }: { item: IFurniture }) {
       <figure className="relative overflow-hidden">
         <div className="w-full h-64 object-cover relative transition-all duration-700 group-hover:scale-110 group-hover:rotate-1">
           <Image
-            src={item.image_url || "/placeholder.svg"}
+            src={item.files[0].secure_url || "/placeholder.svg"}
             alt={item.name}
             fill
           />

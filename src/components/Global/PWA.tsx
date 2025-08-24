@@ -1,15 +1,20 @@
 "use client";
+
 import { useEffect } from "react";
 
 function PWA() {
+  // const [subscription, setSubscription] = useState<PushSubscription | null>(
+  //   null
+  // );
+
   useEffect(() => {
     async function registerServiceWorker() {
       await navigator.serviceWorker.register("/sw.js", {
-        scope: "/",
+        scope: "/admin",
         updateViaCache: "all",
       });
     }
-    if ("serviceWorker" in navigator) {
+    if ("serviceWorker" in navigator && "PushManager" in window) {
       registerServiceWorker();
     } else {
     }

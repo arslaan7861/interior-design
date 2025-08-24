@@ -2,10 +2,10 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Chandigarh Decor",
-    short_name: "Chandigarh Decor",
-    description: "Best interior designers in chandigarh",
-    start_url: "/admin",
+    name: "Tandoorians",
+    short_name: "Tandoorians",
+    description: "A family resaurant",
+    start_url: "/admin/table",
     display: "standalone",
     background_color: "#ffffff",
     theme_color: "#000000",

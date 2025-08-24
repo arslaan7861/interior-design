@@ -1,14 +1,14 @@
 "use server";
 
 import { FurnitureFormData } from "@/components/admin/forms/AddFurnitureForm";
-import { deleteFromCloudinary, uploadCloudinary } from "@/lib/cloudinary";
+import { deleteFromCloudinary } from "@/lib/cloudinary";
 import { FurnitureModel } from "../DB/FurnitureModel";
 import connectDb from "../DB";
 import { revalidatePath } from "next/cache";
 
 export async function newFurnitureAction({
   category,
-  file,
+  files,
   name,
   price,
   description,
@@ -16,45 +16,44 @@ export async function newFurnitureAction({
   try {
     console.log({
       category,
-      file,
+      files,
       name,
       price,
       description,
     });
 
-    const { public_id, secure_url } = await uploadCloudinary(file);
     await connectDb();
     await FurnitureModel.insertOne({
       category,
       name,
       price,
       description,
-      image_url: secure_url,
-      image_public_id: public_id,
+      files,
     });
     revalidatePath("/");
     return { message: "Added successfully", status: true };
-  } catch {
+  } catch (e) {
+    console.log({ e });
+
     return { message: "Failed to upload", status: false };
   }
 }
 
-export async function deleteFurnitureAction({
-  _id,
-  publicId,
-}: {
-  _id: string;
-  publicId: string;
-}) {
+export async function deleteFurnitureAction({ _id }: { _id: string }) {
   try {
     await connectDb();
-    await deleteFromCloudinary(publicId);
+    const doc = await FurnitureModel.findById(_id);
+    if (!doc) throw new Error("Item not found");
 
+    // Delete images first
+    await Promise.all(
+      doc.files.map(({ public_id }: { public_id: string }) =>
+        deleteFromCloudinary(public_id)
+      )
+    );
+
+    // Delete DB item only if images were deleted
     await FurnitureModel.findByIdAndDelete(_id);
-    revalidatePath("/");
-    revalidatePath("/item");
-    console.log("Deleted furniture");
-
     return { message: "Deleted successfully", status: true };
   } catch (error) {
     console.log("error while deleting");

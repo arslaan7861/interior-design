@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { TabsContent } from "@/components/ui/tabs";
 
@@ -11,6 +11,7 @@ import DeleteFurnitureButton from "../buttons/FurnitureDelete";
 import connectDb from "@/server/DB";
 import { ObjectId } from "mongoose";
 import EmptyMessage from "./EmptyMessage";
+import { ItemDetails } from "@/components/homepage/ItemDetails";
 
 async function FurniturePanel({ category }: { category: string }) {
   await connectDb();
@@ -62,7 +63,7 @@ async function FurniturePanel({ category }: { category: string }) {
               <div className="relative overflow-hidden">
                 <div className="w-full h-64 relative transition-all duration-700 group-hover:scale-110 group-hover:rotate-1">
                   <Image
-                    src={item.image_url || "/placeholder.svg"}
+                    src={item.files[0].secure_url || "/placeholder.svg"}
                     alt={item.name}
                     className="object-cover"
                     fill
@@ -92,6 +93,9 @@ async function FurniturePanel({ category }: { category: string }) {
                   {item.description}
                 </p>
               </CardContent>
+              <CardFooter>
+                <ItemDetails admin item={item} />
+              </CardFooter>
             </Card>
           ))}
         </div>

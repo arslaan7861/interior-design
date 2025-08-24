@@ -17,19 +17,27 @@ import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import { IFurniture } from "@/server/DB/FurnitureModel";
 
-function DeleteFurnitureButton({ item }: { item: IFurniture }) {
-  const deleteFurniture = async (_id: string, publicId: string) => {
+function DeleteFurnitureButton({
+  item,
+  children,
+  className = "",
+}: {
+  item: IFurniture;
+  children?: React.ReactNode;
+  className?: string;
+}) {
+  const deleteFurniture = async (_id: string) => {
     try {
       toast.info("Deleting Furniture");
-      await deleteFurnitureAction({ _id, publicId });
+      await deleteFurnitureAction({ _id });
       toast.info("Deleted");
     } catch {}
   };
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button size="sm" variant="destructive">
-          <Trash2 className="h-3 w-3" />
+        <Button size="sm" variant="destructive" className={className}>
+          {children || <Trash2 className="h-3 w-3" />}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -45,7 +53,7 @@ function DeleteFurnitureButton({ item }: { item: IFurniture }) {
           <AlertDialogAction asChild>
             <Button
               variant={"destructive"}
-              onClick={() => deleteFurniture(item._id, item.image_public_id)}
+              onClick={() => deleteFurniture(item._id)}
             >
               Delete
             </Button>

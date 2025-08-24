@@ -1,3 +1,4 @@
+"use server";
 // lib/cloudinary.ts
 import { v2 as cloudinary } from "cloudinary";
 
@@ -10,7 +11,6 @@ cloudinary.config({
 export interface CloudinaryUploadResponse {
   public_id: string;
   secure_url: string;
-  resource_type: "image" | "video" | "raw";
 }
 
 // export async function uploadCloudinary(file: File) {
@@ -43,24 +43,25 @@ export async function uploadCloudinary(file: File) {
     const buffer = Buffer.from(await file.arrayBuffer());
     const base64 = buffer.toString("base64");
     const dataURI = `data:${file.type};base64,${base64}`;
-
-    const { public_id, secure_url, resource_type } =
-      await cloudinary.uploader.upload(dataURI, {
+    const { public_id, secure_url } = await cloudinary.uploader.upload(
+      dataURI,
+      {
         resource_type: "auto",
         timeout: 120000, // 120 seconds
-      });
+      }
+    );
 
-    console.log("file uploaded", { public_id, secure_url, resource_type });
+    console.log("file uploaded", { public_id, secure_url });
     return {
       public_id: public_id,
       secure_url: secure_url,
-      resource_type: resource_type as "image" | "video" | "raw",
     };
   } catch (error) {
     console.error("Cloudinary Upload Error:", error);
     throw error;
   }
 }
+
 /**
  * Deletes a file from Cloudinary by its public ID.
  * @param publicId - Cloudinary public_id (e.g. "folder/filename")
@@ -76,4 +77,4 @@ export async function deleteFromCloudinary(publicId: string): Promise<boolean> {
   }
 }
 
-export default cloudinary;
+// export default cloudinary;

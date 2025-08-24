@@ -8,10 +8,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { IndianRupee } from "lucide-react";
 import { IFurniture } from "@/server/DB/FurnitureModel";
+import DeleteFurnitureButton from "../admin/buttons/FurnitureDelete";
 export interface furnitureItemType {
   id: number;
   name: string;
@@ -22,7 +30,13 @@ export interface furnitureItemType {
   description: string;
 }
 
-export function ItemDetails({ item }: { item: IFurniture }) {
+export function ItemDetails({
+  item,
+  admin,
+}: {
+  item: IFurniture;
+  admin?: boolean;
+}) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -33,16 +47,30 @@ export function ItemDetails({ item }: { item: IFurniture }) {
       <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>
-            <div className="w-full relative sm:h-min flex flex-col sm:flex-row items-center gap-4">
-              <section className="relative h-32 sm:h-48 aspect-video  sm:aspect-square overflow-clip rounded-sm">
-                <Image
-                  src={item.image_url}
-                  alt={item.name}
-                  fill
-                  className="shadow-sm object-cover"
-                />
-              </section>
-              <article className="grow sm:h-full p-4 gap-2  flex flex-col text-left">
+            <div className="w-full max-w-full relative sm:h-min flex flex-col items-center gap-4">
+              <Carousel
+                opts={{ align: "end", loop: true }}
+                className="w-full max-w-md"
+              >
+                <CarouselContent>
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <CarouselItem key={index}>
+                      <section className="relative h-60 w-full overflow-clip rounded-sm">
+                        <Image
+                          src={item.files[0].secure_url}
+                          alt={item.name}
+                          fill
+                          className="shadow-sm object-cover"
+                        />
+                      </section>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
+
+              <article className="grow sm:h-full w-full p-4 gap-2  flex flex-col text-left">
                 <h3 className="sm:text-2xl">{item.name}</h3>
                 <article className="flex gap-1 flex-wrap">
                   <Badge variant={"secondary"}>{item.category}</Badge>
@@ -64,7 +92,15 @@ export function ItemDetails({ item }: { item: IFurniture }) {
           </DialogTitle>
         </DialogHeader>
         <DialogFooter>
-          <Button className="w-full">Place order</Button>
+          {!admin ? (
+            <a href="tel:+918699062901" className="grow">
+              <Button className="w-full">Place order</Button>
+            </a>
+          ) : (
+            <DeleteFurnitureButton item={item} className="grow">
+              Delete
+            </DeleteFurnitureButton>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>

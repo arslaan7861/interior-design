@@ -5,8 +5,10 @@ export interface IFurniture extends Document {
   category: string;
   price: number;
   description?: string;
-  image_url: string; // Cloudinary or other file storage URL
-  image_public_id: string;
+  files: {
+    public_id: string;
+    secure_url: string;
+  }[];
   _id: string;
 }
 
@@ -31,14 +33,19 @@ const FurnitureSchema: Schema = new Schema(
       default: "",
       trim: true,
     },
-    image_url: {
-      type: String,
-      required: [true, "image URL is required"],
-    },
-    image_public_id: {
-      type: String,
-      required: [true, "image URL is required"],
-    },
+    files: [
+      {
+        _id:false,
+        secure_url: {
+          type: String,
+          required: [true, "image URL is required"],
+        },
+        public_id: {
+          type: String,
+          required: [true, "image id is required"],
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
